@@ -8,7 +8,7 @@
  
  
 #include <SoftwareSerial.h>
-SoftwareSerial BTserial(2, 3); // RX | TX
+SoftwareSerial BTserial(2, 4); // RX | TX this is the opposite in the device
 // Connect the HC-06 TX to the Arduino RX on pin 2. 
 // Connect the HC-06 RX to the Arduino TX on pin 3 through a voltage divider.
 // 
