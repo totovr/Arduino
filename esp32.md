@@ -17,6 +17,10 @@ Installation instructions for Mac OS
 Inside the folder "hardware/espressif/esp32" that you have create run:
 
     git submodule update --init --recursive 
+    
+  #If in the BLE doesn't appear the files after run this command you can directly copy from Master Branch and paste it inside    of BLE folder
+  
+    https://github.com/nkolban/ESP32_BLE_Arduino/tree/cb1ab4ea76af17d347cdadcc003d1fe53af12aa7
   
   # This version just run in Python 2.7
   
