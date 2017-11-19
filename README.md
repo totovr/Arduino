@@ -1,4 +1,4 @@
-# Arduino repository
+# Arduino
 
 Arduino programs for different applications
 
@@ -10,7 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 * Arduino IDE
 * Arduino Board
-* OSX, Windows, Linux
+* A computer with OSX, Windows, Linux
 
 ### Installing
 
@@ -20,8 +20,8 @@ Install the Arduino IDE, you can download it from this page:
 
 ## Test your board
 
-Open Arduino IDE and upload one of the examples, this is one simple example to blink a led that contains a Arduino Uno in the pin number 13:
-
+Open Arduino IDE and upload the next example:
+```
     void setup() {
       // initialize digital pin LED_BUILTIN as an output.
       pinMode(LED_BUILTIN, OUTPUT);
@@ -34,9 +34,8 @@ Open Arduino IDE and upload one of the examples, this is one simple example to b
       digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
       delay(1000);                       // wait for a second
     }
-
-
-### If the small led attached to pin number 13 is blinking your board is ready
+```
+This is one simple example to blink a led that contains a Arduino Uno in the pin number 13, if the small led attached to pin number 13 is blinking your board is ready.
 
 ## Also you can use the next IDE to build programs:
 
@@ -49,15 +48,15 @@ Open Arduino IDE and upload one of the examples, this is one simple example to b
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details of the code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available.
+I use [SemVer](http://semver.org/) for versioning.
 
 ## Authors
 
-* Antonio Vega Ramirez - [PurpleBooth](https://github.com/totovr)
+* Antonio Vega Ramirez [Github](https://github.com/totovr)
 
 ## License
 
