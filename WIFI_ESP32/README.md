@@ -22,7 +22,7 @@ If in the BLE doesn't appear the files after run this command you can directly c
   
     https://github.com/nkolban/ESP32_BLE_Arduino/tree/cb1ab4ea76af17d347cdadcc003d1fe53af12aa7
   
-  # This version just run in Python 2.7
+### This version just run in Python 2.7
   
 If you get the error below. Install the command line dev tools with xcode-select --install and try the command above again:
   
