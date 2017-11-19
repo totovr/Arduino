@@ -1,3 +1,5 @@
 # Infrared communication
 
-  Reception and transmission with Arduino uno
+  IR reception and transmission with Arduino uno
+
+# Under Construction
