@@ -8,4 +8,5 @@
 
 ## Count the received pulses
 
-![alt text](https://github.com/totovr/Arduino/blob/master/IR/Images/Decode.png)
+<img src="https://github.com/totovr/Arduino/blob/master/IR/Images/Decode.png" width="250">
+
