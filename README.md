@@ -14,9 +14,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-Install the Arduino IDE, you can download it from this page:
+Install the last stable version of Arduino, you can download it from this page:
 
-    https://www.arduino.cc/en/Main/Software
+*   [Arduino](https://www.arduino.cc/en/Main/Software)
 
 ## Test your board
 
@@ -35,7 +35,7 @@ Open Arduino IDE and upload the next example:
       delay(1000);                       // wait for a second
     }
 ```
-This is one simple example to blink a led that contains a Arduino Uno in the pin number 13, if the small led attached to pin number 13 is blinking your board is ready.
+This is one simple example to blink a led that contains the Arduino Uno board in the pin number 13, if the small led attached to pin number 13 is blinking your board is ready.
 
 ## Also you can use the next IDE to build programs:
 
