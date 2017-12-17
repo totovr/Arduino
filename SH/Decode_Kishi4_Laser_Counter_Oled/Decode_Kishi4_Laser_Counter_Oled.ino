@@ -10,10 +10,14 @@
 #define OLED_RESET 10
 char buffer[10];
 Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
-//
+//counter to begin the game
+int count = 5;
+//Receptor
 int points = 0;
 const int analogInPin = A0;
 int LaserValue = 0;
+//Emisor
+
 // the setup routine runs once when you press reset:
 void setup() {
   // initialize serial communication at 9600 bits per second:
@@ -22,17 +26,32 @@ void setup() {
   display.display();
   delay(1000);
   display.clearDisplay();
-  display.setTextSize(1);
-  display.setTextColor(WHITE); 
+  display.setTextSize(2);
+  display.setTextColor(BLACK, WHITE); 
 }
 
 // the loop routine runs over and over again forever:
 void loop() {
-  oled_display();
+  //Just will set this display for the first 5 seconds
+  TheGame();
+  //oled_display();
   // read the input on analog pin 0:
   LaserValue = analogRead(analogInPin);
   Points();  
   delay(300);
+}
+
+void TheGame() {
+  //Draw a counter of the time to begin the game
+  display.clearDisplay();
+  display.setCursor(0,0);
+  for(count; count < 0; count--) {
+    display.print(" The game ");
+    display.print("will start");
+    display.print(count);
+    delay(1000); 
+  } 
+  display.display();   
 }
 
 void Points() {
@@ -46,26 +65,66 @@ void Points() {
 void oled_display() {
   display.clearDisplay();
   display.setCursor(0,0);
-  display.print("Shoots recived: ");
-  display.print(points);//counter
-  display.print("\n");
-  display.print("Shoots: ");
-  //display.print(x);//counter
-  display.print("\n");
-  display.print("Air Pressure: ");
-  //display.print(x);//counter
-  display.print("\n");
-  display.print("Timer: ");
   timer();
-  display.display();  
+  display.display();
+  delay(3000);  
+  //draw shoots
+  display.clearDisplay();
+  display.setCursor(0,0);
+  shootgun();
+  display.display();
+  delay(3000); 
+  //draw shoots received
+  display.clearDisplay();
+  display.setCursor(0,0);
+  life();
+  display.display();
+  delay(3000); 
+  //draw gas
+  display.clearDisplay();
+  display.setCursor(0,0);
+  gas();
+  display.display();
+  delay(3000); 
+}
+
+void life() {
+  display.print("          ");
+  display.print(" Impacts      ");
+  display.print(points);//counter  
+  display.print("     ");
+  display.print("          ");
+}
+
+void shootgun() {  
+  display.print("        ");
+  display.print("    Shoots  ");
+  //display.print(x);//counter
+  display.print("          ");
+  display.print("          ");
+}
+
+void gas() {
+  display.print("          ");
+  display.print("    CO2   ");
+  //display.print(x);//counter
+  display.print("          ");
+  display.print("          ");
 }
 
 void timer() {
+  display.print("        ");
+  display.print("    Timer    ");
+  calculateTime();
+  display.print("          ");
+}
+
+void calculateTime(){
   long t= millis()/1000 ;
   int horas = t/3600 ;
   int minutos = (t % 3600) / 60;
   int segs = (t - horas*3600 - minutos * 60) % 60 ;
-  int n = sprintf(buffer, "%02d:%02d:%02d", horas, minutos, segs);  
-  display.print(buffer);
+  int n = sprintf(buffer, "%02d:%02d:%02d ", horas, minutos, segs);  
+  display.print(buffer); 
 }
 
