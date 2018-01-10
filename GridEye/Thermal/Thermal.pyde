@@ -7,7 +7,7 @@ max_temp = 38 / 0.25
 
 def setup():
   # Window screen size setting
-    size(384 * 2, 384)
+    size(384*2, 384)
 
     # Initialize serial port
     print Serial.list()
