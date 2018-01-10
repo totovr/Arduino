@@ -32,7 +32,7 @@ Install the last stable version of Processing, you can download it from this lin
 
 ## Connect the Sensor
 
-<img src="https://github.com/totovr/Arduino/blob/master/GridEye/Images/Connections.png" width="250">
+<img src="https://github.com/totovr/Arduino/blob/master/GridEye/Images/Connections.png" width="400">
 
 |Arduino PIN| Sensor PIN|   
 |:---------:|:---------:|
@@ -45,7 +45,7 @@ Install the last stable version of Processing, you can download it from this lin
 
 ## Programs
 
-* [GridEye](https://github.com/totovr/Arduino/tree/master/GridEye/GridEye | width=450)
+* [GridEye](https://github.com/totovr/Arduino/tree/master/GridEye/GridEye)
 
 Arduino reads pixel temperature data and transmits 1 pixel in 2 byte short type with lower order byte and upper byte in serial communication. Before sending the temperature data, send 2 byte header (0x55, 0xaa) as data delimiter.
 
