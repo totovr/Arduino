@@ -41,7 +41,17 @@ Install the last stable version of Processing, you can download it from this lin
 |     VDD   |    3.3V   |
 |     AD    |    GND    |
 
-##
+## Programs
+
+* [GridEye](https://github.com/totovr/Arduino/tree/master/GridEye/GridEye)
+
+Arduino reads pixel temperature data and transmits 1 pixel in 2 byte short type with lower order byte and upper byte in serial communication. Before sending the temperature data, send 2 byte header (0x55, 0xaa) as data delimiter.
+
+* [Thermal](https://github.com/totovr/Arduino/tree/master/GridEye/Thermal)
+
+Processing side waits for 130 bytes of data (header 2 bytes + pixel temperature data 64 * 2) to accumulate in the buffer. When it receives 130 bytes, it confirms whether it received the header. When receiving the header, store the pixel temperature data in the variable.
+
+##### This program is written in Python
 
 ## Also you can use the next IDE to build programs:
 
