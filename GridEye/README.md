@@ -32,6 +32,8 @@ Install the last stable version of Processing, you can download it from this lin
 
 ## Connect the Sensor
 
+![alt text](https://github.com/totovr/Arduino/blob/master/GridEye/Images/Connections.png)
+
 |Arduino PIN| Sensor PIN|   
 |:---------:|:---------:|
 |     A4    |    SDA    |
@@ -52,6 +54,9 @@ Arduino reads pixel temperature data and transmits 1 pixel in 2 byte short type 
 Processing side waits for 130 bytes of data (header 2 bytes + pixel temperature data 64 * 2) to accumulate in the buffer. When it receives 130 bytes, it confirms whether it received the header. When receiving the header, store the pixel temperature data in the variable.
 
 ##### This program is written in Python
+
+![alt text](https://github.com/totovr/Arduino/blob/master/GridEye/Images/Thermal.png)
+
 
 ## Also you can use the next IDE to build programs:
 
