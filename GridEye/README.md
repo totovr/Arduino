@@ -32,7 +32,7 @@ Install the last stable version of Processing, you can download it from this lin
 
 ## Connect the Sensor
 
-![alt text](https://github.com/totovr/Arduino/blob/master/GridEye/Images/Connections.png)
+<img src="https://github.com/totovr/Arduino/blob/master/GridEye/Images/Connections.png" width="250">
 
 |Arduino PIN| Sensor PIN|   
 |:---------:|:---------:|
@@ -55,8 +55,7 @@ Processing side waits for 130 bytes of data (header 2 bytes + pixel temperature 
 
 ##### This program is written in Python
 
-![alt text](https://github.com/totovr/Arduino/blob/master/GridEye/Images/Thermal.png | width=100)
-
+<img src="https://github.com/totovr/Arduino/blob/master/GridEye/Images/Thermal.png" width="250">
 
 ## Also you can use the next IDE to build programs:
 
