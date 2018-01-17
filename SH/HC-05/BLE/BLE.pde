@@ -27,7 +27,6 @@ void draw(){
   text("Status:", 180, 200);
   textSize(30);
   textSize(16);
-  text("Program made by Dejan Nedelkovski,\n     www.HowToMechatronics.com", 80, 320);
   text(ledStatus, 155, 240); // Prints the string comming from the Arduino
   
   // If the button "Turn ON" is pressed
