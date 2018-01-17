@@ -4,7 +4,7 @@ String ledStatus="LED: OFF";
 void setup(){
   size(450, 500);
   printArray(Serial.list());
-  myPort = new Serial(this, Serial.list()[3], 9600); // Starts the serial communication
+  myPort = new Serial(this, Serial.list()[0], 38400); // Starts the serial communication
   myPort.bufferUntil('\n'); // Defines up to which character the data from the serial port will be read. The character '\n' or 'New Line'
 }
 void serialEvent (Serial myPort){ // Checks for available data in the Serial Port
