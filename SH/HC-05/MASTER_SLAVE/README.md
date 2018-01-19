@@ -1,8 +1,15 @@
 ##### HC-05 Example
 
-This program use a HC-05 module connected to Arduino Uno to pair another HC-05 module with other Arduino board
+This program pair two HC-05 module to blink one led everytime that a bottom is press
 
 ###### Setup in Raspberry Pi 3 Linux ubuntu MATE
+
+##### Requirements
+
+* 2 Modules HC-05
+* 2 Arduino Board
+* 1 led
+* 1 push bottom
 
 ##### Procedure
 
