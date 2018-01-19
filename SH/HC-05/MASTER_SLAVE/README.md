@@ -13,7 +13,8 @@ This program use a HC-05 module connected to Arduino Uno to pair another HC-05 m
 | VCC     |     5V    |
 | GND     |     GND   |   
 | TX      |     TX    |    
-| RX      |     RX    |   
+| RX      |     RX    | 
+| EN      |    3.3V   | 
 
 ###### Slave Configuration
 
