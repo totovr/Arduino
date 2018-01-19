@@ -13,7 +13,8 @@ This program use a HC-05 module connected to Arduino Uno to pair another HC-05 m
 | VCC     |     5V    |
 | GND     |     GND   |   
 | TX      |     TX    |    
-| RX      |     RX    |   
+| RX      |     RX    | 
+| EN      |    3.3V   | 
 
 ###### Slave Configuration
 
@@ -35,6 +36,8 @@ this means that you are in AT-COMMAND mode.
 * Check the speed by:
 
       AT+ UART?
+      
+  Default baud rate is 9600 
 
 * Lets check the name of the module typing:
 
@@ -162,4 +165,4 @@ this means that you are in AT-COMMAND mode.
 | TX      |     RX    |    
 | RX      |     TX    |
 
-** Every time that you upload a program to the board is necessary to disconnect the RX and TX pins of the module with the board**
+**Every time that you upload a program to the board is necessary to disconnect the RX and TX pins of the module with the board**
