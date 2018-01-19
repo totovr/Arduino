@@ -1,6 +1,6 @@
 ##### HC-05 Example
 
-This program use a HC-05 module connected to Arduino Uno to control via Bluetooth a BLE_Arduino
+This program use a HC-05 module connected to Arduino Uno to pair another HC-05 module with other Arduino board
 
 ###### Setup in Raspberry Pi 3 Linux ubuntu MATE
 
@@ -17,7 +17,7 @@ This program use a HC-05 module connected to Arduino Uno to control via Bluetoot
 
 ###### Slave Configuration
 
-* Before turn on the Arduino keep pressed the bottom of the HC-05 module, after turn it on the light will be blinking slower, 
+* Before turn on the Arduino keep pressed the bottom of the HC-05 module, after turn it on the light will be blinking slower,
 this means that you are in AT-COMMAND mode.
 
 * Open an Arduino empty file and upload it to the board
@@ -25,7 +25,7 @@ this means that you are in AT-COMMAND mode.
 * Open the serial terminal and type:
 
       AT
-      
+
   It must return:
 
       OK
@@ -39,7 +39,7 @@ this means that you are in AT-COMMAND mode.
 * Lets check the name of the module typing:
 
       AT+NAME?
-      
+
   Also you can change the name as you like with:
 
       AT+NAME="NAME THAT YOU WANT"
@@ -63,7 +63,7 @@ this means that you are in AT-COMMAND mode.
 * To know the address of this module type the next command:
 
       AT+ADDR?  
-      
+
   Note that the Address is showed like this:
 
       14:2:110007
@@ -73,14 +73,14 @@ this means that you are in AT-COMMAND mode.
       14,2,110007
 
   **Remember to write this address we will use it later**
-      
+
 * Turn off the Arduino and turn it on Again
 
 ###### Again provide the power to see STATUS LED on the module blinking fast indicating that it is looking for a PAIR.
 
 ###### Master Configuration
 
-* Before turn on the Arduino keep pressed the bottom of the HC-05 module, after turn it on the light will be blinking slower, 
+* Before turn on the Arduino keep pressed the bottom of the HC-05 module, after turn it on the light will be blinking slower,
 this means that you are in AT-COMMAND mode.
 
 * Open an Arduino empty file and upload it to the board
@@ -88,7 +88,7 @@ this means that you are in AT-COMMAND mode.
 * Open the serial terminal and type:
 
       AT
-      
+
   It must return:
 
       OK
@@ -98,7 +98,7 @@ this means that you are in AT-COMMAND mode.
 * Lets check the name of the module typing:
 
       AT+NAME?
-      
+
   Also you can change the name as you like with:
 
       AT+NAME="NAME THAT YOU WANT"
@@ -112,7 +112,7 @@ this means that you are in AT-COMMAND mode.
       AT+RMAAD  
 
   this will release the module from any previous PAIR.
-  
+
 * The ROLE of the module can be known by typing:  
 
       AT+ROLE?
@@ -144,10 +144,22 @@ this means that you are in AT-COMMAND mode.
       AT+LINK=<address>
 
   **Also you can check the AT+BIND command**
-  
+
 * Turn off the Arduino and turn it on Again
 
 ###### Again provide the power to see STATUS LED on the module blinking fast indicating that it is looking for a PAIR.
 
 #### If all the process is complete the led of each module must blink slower, this means that the modules are paired
 
+#### Arduino programs
+
+* To be able to use the board with the module remember to change the pins showed in the next table:
+
+|HC-05 PIN|Arduino PIN|
+|:-------:|:---------:|
+| VCC     |     5V    |
+| GND     |     GND   |   
+| TX      |     RX    |    
+| RX      |     TX    |
+
+** Every time that you upload a program to the board is necessary to disconnect the RX and TX pins of the module with the board**
