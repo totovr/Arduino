@@ -1,6 +1,6 @@
 ##### HC-05 Example
 
-This program use a HC-05 module connected to Arduino Uno to control via Bluetooth a BLE_Arduino
+This program use a HC-05 module connected to an Arduino Uno to control from the computer the board via Bluetooth 
 
 ###### Setup in Raspberry Pi 3 Linux ubuntu MATE
 
