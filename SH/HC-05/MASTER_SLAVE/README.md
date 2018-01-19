@@ -36,6 +36,8 @@ this means that you are in AT-COMMAND mode.
 * Check the speed by:
 
       AT+ UART?
+      
+  Default baud rate is 9600 
 
 * Lets check the name of the module typing:
 
