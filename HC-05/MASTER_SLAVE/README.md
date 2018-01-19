@@ -12,8 +12,8 @@ This program use a HC-05 module connected to Arduino Uno to control via Bluetoot
 |:-------:|:---------:|
 | VCC     |     5V    |
 | GND     |     GND   |   
-| Tx      |     Tx    |    
-| RX      |     Rx    |   
+| TX      |     TX    |    
+| RX      |     RX    |   
 
 ###### Slave Configuration
 
@@ -150,3 +150,4 @@ this means that you are in AT-COMMAND mode.
 ###### Again provide the power to see STATUS LED on the module blinking fast indicating that it is looking for a PAIR.
 
 #### If all the process is complete the led of each module must blink slower, this means that the modules are paired
+
