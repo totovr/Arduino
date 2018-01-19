@@ -25,6 +25,6 @@ This program use a HC-05 module connected to Arduino Uno to control via Bluetoot
 
 * Open Putty
 
-[](https://github.com/totovr/Arduino/blob/master/SH/HC-05/BLE_Arduino/putty.png)
+<img src="https://github.com/totovr/Arduino/blob/master/SH/HC-05/BLE_Arduino/putty.png" width="450">
 
 * Connect with the Serial option to the port that is assigned to the Bluetooth module
