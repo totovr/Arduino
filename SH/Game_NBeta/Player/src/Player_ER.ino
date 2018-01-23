@@ -1,14 +1,16 @@
 //Libraries
 #include <IRremote.h>
-//code values
+//Code values
+//Laser shoot
 const int Laser_PullUPin = 2;  //pin for pullup resistor D2
 int ledLaser =  13;         //pin for laser
 int value = 0;
 int lastvalue = 0;     // previous state of the button
-//decode
-//counter to begin the game
+//Decode
+//Counter to begin the game
 int count = 0;
 //Receptor
+//Laser receptor
 int points = 0;
 const int analogInPin = A0;
 int LaserValue = 0;
