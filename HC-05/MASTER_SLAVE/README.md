@@ -1,4 +1,4 @@
-##### HC-05 Example
+## HC-05 Example
 
 This program pair two HC-05 module to blink one led everytime that a bottom is press
 
