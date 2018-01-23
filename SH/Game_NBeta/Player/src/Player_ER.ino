@@ -6,7 +6,7 @@ const int Laser_PullUPin = 2;  //pin for pullup resistor D2
 int ledLaser =  13;         //pin for laser
 int value = 0;
 int lastvalue = 0;     // previous state of the button
-//Decode
+//Decode values
 //Receptor
 //Laser receptor
 int points = 0;
@@ -28,11 +28,12 @@ decode_results results;
 const int IR_PullUPin = 3;  //pin for pullup resistor D3
 int IR_Value = 0;
 int IR_Last_Value = 0;
+int IR_Impact = 5;
 //Death variable
 int end = 0;
 
 void setup() {
-  pinMode(5, OUTPUT);
+  pinMode(IR_Impact, OUTPUT);
   pinMode(ledLaser, OUTPUT);  //Set pin 13 as output
   Serial.begin(9600);      //Start serial communication
   pinMode(PointC, OUTPUT);  //Set pin 11 as output
@@ -43,8 +44,6 @@ void loop() {
   Laser_PullUp();
   LaserValue = analogRead(analogInPin);
   delay(10);
-  //  Serial.print(LaserValue);
-  //  Serial.print("\n");
   Points();
   //EMG sensor reading
   emg = analogRead(emgPin);
@@ -70,7 +69,9 @@ void SendPluse() {
   digitalWrite(ledLaser, LOW);
   delay(2);
 }
-//decode
+
+//Decode
+//Laser Receptor
 void Points() {
   if(LaserValue > 180) {
     if(end < 20) {
@@ -110,10 +111,10 @@ void IR_PullUp() {
 }
 
 void IR_Receptor() {
-  digitalWrite(5,LOW);
+  digitalWrite(IR_Impact,LOW);
   if (irrecv.decode(&results)) {
     if (results.decode_type == SONY) {
-      digitalWrite(5,HIGH);
+      digitalWrite(IR_Impact,HIGH);
       delay(30);
       //Here we will write the extra IR points
     }

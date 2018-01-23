@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include <IRremote.h>
+
 //Decode values
 
 //Laser receptor
@@ -18,10 +19,22 @@ int emg = 0;
 int emg_counter = 0;
 int emg_counter1 = 0;
 
+// IR receptor
+void IR_PullUp();
+void IR_Receptor()
+int IR_receptorPin = A2;
+IRrecv irrecv(IR_receptorPin);
+decode_results results;
+const int IR_PullUPin = 3;  //pin for pullup resistor D3
+int IR_Value = 0;
+int IR_Last_Value = 0;
+int IR_Impact = 5;
+
 //Death variable
 int end = 0;
 
 void setup() {
+  pinMode(IR_Impact, OUTPUT);//Turn on pin 5 if we received an impact of IR
   Serial.begin(38400); // Communication baudio rate of the Bluetooth module
 }
 
@@ -32,7 +45,11 @@ void loop() {
   //EMG sensor reading
   emg = analogRead(emgPin);
   EMG();
-  Serial.flush();
+  //IR reding
+  IR_Value = digitalRead(IR_PullUPin);
+  IR_Receptor();
+  //Serial.flush();
+  Serial.write('0');//Avoid errors
  }
 
 //Decode
@@ -52,7 +69,25 @@ void Laser_Sensor() {
   LaserValue = 0;
 }
 
-
 void EMG() {
+  if(emg > 4000) {
+    emg_counter=+1;
+    if(emg_counter = 500) { //If the count is over 20 we will activate the super arm
+      Serial.write('2'); // Sends '2' to the master to activate especial gun
+      delay(10);
+      emg_counter = 0;
+    }
+  }
+}
 
+void IR_Receptor() {
+  digitalWrite(IR_Impact,LOW);
+  if (irrecv.decode(&results)) {
+    if (results.decode_type == SONY) {
+      Serial.write('3'); // Sends '3' to the master to advice that we were shoot by IR
+      digitalWrite(IR_Impact,HIGH);//LED will turn on because we were hit
+      delay(500);
+      digitalWrite(IR_Impact,LOW);
+    }
+  }
 }
