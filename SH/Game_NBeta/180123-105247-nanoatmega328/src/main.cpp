@@ -1,12 +1,16 @@
+//By the Super Human Team
+//Bluetooth
+
 #include <Arduino.h>
 #include <IRremote.h>
-//Bluetooth
 //Decode values
+
 //Laser receptor
 void Laser_Sensor();
 const int LSpin = A0;// Pin to read the laser sensor
 int points = 0;
 int LaserValue = 0;
+
 //EMG Sensor
 void EMG();
 const int emgPin = A1;// Pin to read the EMG sensor
@@ -28,6 +32,7 @@ void loop() {
   //EMG sensor reading
   emg = analogRead(emgPin);
   EMG();
+  Serial.flush();
  }
 
 //Decode
@@ -49,5 +54,5 @@ void Laser_Sensor() {
 
 
 void EMG() {
-  
+
 }
