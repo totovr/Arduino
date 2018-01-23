@@ -7,8 +7,6 @@ int ledLaser =  13;         //pin for laser
 int value = 0;
 int lastvalue = 0;     // previous state of the button
 //Decode
-//Counter to begin the game
-int count = 0;
 //Receptor
 //Laser receptor
 int points = 0;
