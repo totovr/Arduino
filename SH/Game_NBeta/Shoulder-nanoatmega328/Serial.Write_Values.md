@@ -8,6 +8,5 @@
 |    1    |     Laser Point   |   
 |    2    |     Special Gun   |    
 |    3    |     IR Point      |
-|    9    |   Stop the Game   |
 
 ###### Note that the Laser Point and the IR Point are points that we received because we were hit

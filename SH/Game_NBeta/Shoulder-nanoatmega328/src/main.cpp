@@ -34,8 +34,9 @@ int IR_Impact = 5;
 int end = 0;
 
 void setup() {
+  // initialize serial communication at 38400 bits per second:
+  Serial.begin(38400); 
   pinMode(IR_Impact, OUTPUT);//Turn on pin 5 if we received an impact of IR
-  Serial.begin(38400); // Communication baudio rate of the Bluetooth module
 }
 
 void loop() {
@@ -62,7 +63,6 @@ void Laser_Sensor() {
     }//If we detect that the end variable is over 20 we will do a infinite bucle
     else {
       while(1) {
-        Serial.write('9'); // Sends '9' to the master to as the player is death
       }
     }
   }

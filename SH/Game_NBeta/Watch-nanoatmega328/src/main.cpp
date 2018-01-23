@@ -1,8 +1,24 @@
+//By the Super Human Team
+//Bluetooth
+
 #include <Arduino.h>
 #include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include <IRremote.h>
+
+//Functions
+void TheGame();
+void Laser_Points();
+void Shoots();
+void oled_timer();
+void oled_LF();
+void shoot_life();
+void timer();
+void calculateTime();
+void Game_Over();
+
 // If using software SPI (the default case):
 #define OLED_MOSI  11   //D1
 #define OLED_CLK   12   //D0
@@ -14,10 +30,7 @@ Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
 
 //Receptor
 int points = 0;
-int LaserValue = 0;
-const int PointPin = A0;
-int PointState = 0;
-int lastPointState = 0;
+char Laser_Point;
 //Emisor
 int shoots = 0;
 int ShootValue = 0;
@@ -27,10 +40,16 @@ int lastShootState = 0;
 //Game_Over
 int end = 0;
 
+//Laser shoot
+const int Laser_PullUPin = 2;  //pin for pullup resistor D2
+int ledLaser =  13;         //pin for laser
+int value = 0;
+int lastvalue = 0;     // previous state of the button
+
 // the setup routine runs once when you press reset:
 void setup() {
-  // initialize serial communication at 9600 bits per second:
-  Serial.begin(9600);
+  // initialize serial communication at 38400 bits per second:
+  Serial.begin(38400);
   display.begin(SSD1306_SWITCHCAPVCC);
   display.display();
   //delay(1000);
@@ -47,10 +66,10 @@ void setup() {
 void loop() {
   //Just will set this display for the first 5 seconds
   oled_timer();
-  //Read the input on analog pin 0:
-  PointState = digitalRead(PointPin);
-  Points();
+  //Laser Points check if the user was hit by the laser gun
+  Laser_Points();
   ShootState = digitalRead(ShootPin);
+  //Check how many shoots did the player
   Shoots();
   //delay(300);
 }
@@ -70,21 +89,21 @@ void TheGame() {
   }
 }
 
-void Points() {
-  if (PointState != lastPointState) {
-    if (PointState == HIGH) {
-      if (end > 20) {
-        points = points + 1;
-        oled_LF();
-      }
-      else {
-        while(1) {
-          Game_Over();
-        }
-      }
+void Laser_Points() {
+  if (Serial.available()) { // If data is available to read,
+    Laser_Point = Serial.read(); // read it and store it in val
+    if (Laser_Point == '1') {
+       if (end > 20) {
+         points = points + 1;
+         oled_LF();
+       }
+       else {
+         while(1) {
+           Game_Over();
+         }
+       }
     }
   }
-  lastPointState = PointState;//Evaluate the last state of the push buttom
 }
 
 void Shoots() {
