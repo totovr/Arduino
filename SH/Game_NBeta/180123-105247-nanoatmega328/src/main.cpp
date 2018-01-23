@@ -49,22 +49,5 @@ void Laser_Sensor() {
 
 
 void EMG() {
-  if(emg > 750) {
-    emg_counter=+1;
-    if(emg_counter = 100) { //If the count is iqual 100 we will activate the super arm
-      digitalWrite(5,HIGH);//temp
-      delay(500);
-      emg_counter1=+1;
-      digitalWrite(5,LOW);//temp
-      emg_counter = 0;
-      if(emg_counter1 = 20) {
-        digitalWrite(6,HIGH);//temp
-        delay(500);
-        digitalWrite(6,LOW);//temp
-        irsend.sendSony(0x68B90, A2);// the second statment is the port that we will use
-        delay(100);
-        emg_counter1 = 0;
-      }
-    }
-  }
+  
 }
