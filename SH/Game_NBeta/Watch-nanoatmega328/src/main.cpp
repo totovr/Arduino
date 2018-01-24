@@ -48,8 +48,10 @@ int laser_value = 0;
 int last_laser_value = 0;// previous state of the button
 int shoots = 0;// shoots counter variable
 //IR Shoot
-char Super_Gun;
-int ledIR = 7;//pin for IR
+IRsend irsend; //create a IRsend object
+char Super_Gun;//In this variable we will save the data that was send by the other Arduino
+int ledIR = A3;//pin for IR shoot
+int ledIR_advice = 6;//if the special gun is activated a led will turn on
 
 // the setup routine runs once when you press reset:
 void setup() {
@@ -65,6 +67,8 @@ void setup() {
         //TheGame();
         //Laser shoot configuration
         pinMode(ledLaser, OUTPUT); //Set pin 13 as output
+        //IR shoot configuration
+        pinMode(ledIR_advice, OUTPUT); //Set pin 7 as output
 }
 
 // the loop routine runs over and over again forever:
@@ -119,10 +123,10 @@ void IR_Points() {
         if (Serial.available()) { // If data is available to read
                 IR_Point = Serial.read(); // read it and store it in val
                 if (IR_Point == '3') {
-                                points = points + 5;
-                                oled_LF();
-                                end = points;
-                                IR_Point = '0';
+                        points = points + 5;
+                        oled_LF();
+                        end = points;
+                        IR_Point = '0';
                         if(end > 20) {
                                 while(1) {
                                         Game_Over();
@@ -157,6 +161,10 @@ void Special_Weapon() {
                 if (Super_Gun == '2') {
                         shoots = shoots + 5;
                         Super_Gun = '0';
+                        digitalWrite(ledIR_advice, HIGH);
+                        irsend.sendSony(0x68B90, A3);// the second statment is the PIN that we will use
+                        delay(500);
+                        digitalWrite(ledIR_advice, LOW);
                 }
         }
 }

@@ -4,28 +4,26 @@
 #include <Arduino.h>
 #include <IRremote.h>
 
-//Laser receptor
+//Functions
 void Laser_Sensor();
+void EMG();
+void IR_Receptor();
+
+//Laser receptor
 const int LSpin = A0;// Pin to read the laser sensor
 int points = 0;
 int LaserValue = 0;
 
 //EMG Sensor
-void EMG();
 const int emgPin = A1;// Pin to read the EMG sensor
 int emg = 0;
 int emg_counter = 0;
 int emg_counter1 = 0;
 
 // IR receptor
-void IR_PullUp();
-void IR_Receptor();
-int IR_receptorPin = A2;
-IRrecv irrecv(IR_receptorPin);
+int IR_receptorPin = A2;//Pin used to read IR values
+IRrecv irrecv(IR_receptorPin);//Create an object
 decode_results results;
-const int IR_PullUPin = 3;  //pin for pullup resistor D3
-int IR_Value = 0;
-int IR_Last_Value = 0;
 int IR_Impact = 5;
 
 //Death variable
@@ -35,6 +33,7 @@ void setup() {
         // initialize serial communication at 38400 bits per second:
         Serial.begin(38400);
         pinMode(IR_Impact, OUTPUT);//Turn on pin 5 if we received an impact of IR
+        irrecv.enableIRIn(); // Start the receiver
 }
 
 void loop() {
@@ -45,7 +44,6 @@ void loop() {
         emg = analogRead(emgPin);
         EMG();
         //IR reding
-        IR_Value = digitalRead(IR_PullUPin);
         IR_Receptor();
         //Serial.flush();
         //Serial.write('0');//Avoid errors
@@ -78,7 +76,7 @@ void EMG() {
                 }
         }
 }
-
+//Decode the IR pulse
 void IR_Receptor() {
         digitalWrite(IR_Impact,LOW);
         if (irrecv.decode(&results)) {
