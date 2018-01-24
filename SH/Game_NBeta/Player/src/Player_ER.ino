@@ -20,7 +20,6 @@ int emg_counter = 0;
 //IR
 IRsend irsend;
 const int analogPin = A3;
-int outputvalue = 0;
 // IR receptor
 int IR_receptorPin = 12;//Before was 11
 IRrecv irrecv(IR_receptorPin);
