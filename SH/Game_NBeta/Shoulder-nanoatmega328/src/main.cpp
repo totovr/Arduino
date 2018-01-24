@@ -21,7 +21,7 @@ int emg_counter1 = 0;
 
 // IR receptor
 void IR_PullUp();
-void IR_Receptor()
+void IR_Receptor();
 int IR_receptorPin = A2;
 IRrecv irrecv(IR_receptorPin);
 decode_results results;
@@ -35,7 +35,7 @@ int end = 0;
 
 void setup() {
   // initialize serial communication at 38400 bits per second:
-  Serial.begin(38400); 
+  Serial.begin(38400);
   pinMode(IR_Impact, OUTPUT);//Turn on pin 5 if we received an impact of IR
 }
 
@@ -72,7 +72,8 @@ void Laser_Sensor() {
 void EMG() {
   if(emg > 4000) {
     emg_counter=+1;
-    if(emg_counter = 500) { //If the count is over 20 we will activate the super arm
+    //If the count is over 20 we will activate the super arm
+    if(emg_counter == 500) {
       Serial.write('2'); // Sends '2' to the master to activate especial gun
       delay(10);
       emg_counter = 0;
