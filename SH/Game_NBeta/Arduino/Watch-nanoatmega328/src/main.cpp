@@ -142,7 +142,7 @@ void IR_Points() {
 //Activate the laser gun
 void Laser_PullUp() {
         if (laser_value != last_laser_value) {
-                if (last_laser_value == HIGH) {
+                if (laser_value == HIGH) {
                         shoots = shoots + 1;
                         oled_LF();
                         SendPluse(); //I call the function pulse
@@ -179,7 +179,6 @@ void oled_LF() {
         display.setCursor(0,0);
         shoot_life();
         display.display();
-        //delay(1000);
 }
 //Format of the Shoots and impacts
 void shoot_life() {
@@ -198,7 +197,6 @@ void oled_timer() {
         display.setCursor(0,0);
         timer();
         display.display();
-        //delay(500);
 }
 //Format of the watch
 void timer() {
@@ -226,5 +224,4 @@ void Game_Over() {
         display.print("   OVER   ");
         display.print("          ");
         display.display();
-        delay(1000);
 }
