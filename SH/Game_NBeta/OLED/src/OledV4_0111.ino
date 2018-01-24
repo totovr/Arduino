@@ -72,11 +72,10 @@ void TheGame() {
 void Points() {
   if (PointState != lastPointState) {
     if (PointState == HIGH) {
-      if (end > 20) {
         points = points + 1;
         oled_LF();
-      }
-      else {
+        end = points;
+      if(end > 20) {
         while(1) {
           Game_Over();
         }

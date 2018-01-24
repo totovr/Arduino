@@ -9,15 +9,18 @@
 #include <IRremote.h>
 
 //Functions
-void TheGame();
-void Laser_Points();
-void Shoots();
-void oled_timer();
-void oled_LF();
-void shoot_life();
-void timer();
-void calculateTime();
-void Game_Over();
+void TheGame();//Show a message before the game start
+void Laser_Points();//Count the laser impacts
+void Laser_PullUp();//Activate the laser gun
+void IR_Points();//Count the IR impacts
+void SendPluse();//Send the laser pulse
+void Special_Weapon();//Activate the special weapon
+void oled_timer();//Display the time
+void oled_LF();//Display of the life and impact
+void shoot_life();//format of the life and impact
+void timer();//format of the clock
+void calculateTime();//Function that calculate the time
+void Game_Over();//Function that is called when the game is over
 
 // If using software SPI (the default case):
 #define OLED_MOSI  11   //D1
@@ -29,141 +32,173 @@ char buffer[10];
 Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
 
 //Receptor
+//Laser Point
 int points = 0;
 char Laser_Point;
-//Emisor
-int shoots = 0;
-int ShootValue = 0;
-const int ShootPin = A1;
-int ShootState = 0;
-int lastShootState = 0;
+//IR Point
+char IR_Point;
+
 //Game_Over
 int end = 0;
 
 //Laser shoot
 const int Laser_PullUPin = 2;  //pin for pullup resistor D2
-int ledLaser =  13;         //pin for laser
-int value = 0;
-int lastvalue = 0;     // previous state of the button
+int ledLaser =  13;//pin for laser
+int laser_value = 0;
+int last_laser_value = 0;// previous state of the button
+int shoots = 0;// shoots counter variable
 
 // the setup routine runs once when you press reset:
 void setup() {
-  // initialize serial communication at 38400 bits per second:
-  Serial.begin(38400);
-  display.begin(SSD1306_SWITCHCAPVCC);
-  display.display();
-  //delay(1000);
-  display.clearDisplay();
-  display.setTextSize(2);
-  display.setTextColor(BLACK, WHITE);
-  //TheGame();
-  //Set the pin has input
-  pinMode(PointPin, INPUT);
-  pinMode(ShootPin, INPUT);
+        // initialize serial communication at 38400 bits per second:
+        Serial.begin(38400);
+        //OLED configuration
+        display.begin(SSD1306_SWITCHCAPVCC);
+        display.display();
+        display.clearDisplay();
+        display.setTextSize(2);
+        display.setTextColor(BLACK, WHITE);
+        //Display a game message
+        //TheGame();
+        //Laser shoot configuration
+        pinMode(ledLaser, OUTPUT); //Set pin 13 as output
 }
 
 // the loop routine runs over and over again forever:
 void loop() {
-  //Just will set this display for the first 5 seconds
-  oled_timer();
-  //Laser Points check if the user was hit by the laser gun
-  Laser_Points();
-  ShootState = digitalRead(ShootPin);
-  //Check how many shoots did the player
-  Shoots();
-  //delay(300);
+        //Just will set this display for the first 5 seconds
+        oled_timer();
+        //Laser Points check if the user was hit by the laser gun
+        Laser_Points();
+        //IR Points check if the user was hit by the Special Gun
+        IR_Points();
+        //Check how many shoots did the player
+        Laser_PullUp();
+        Serial.flush();
 }
 
 void TheGame() {
-  //Draw a counter of the time to begin the game
-  for (int i=0; i < 6; i++) {
-    display.clearDisplay();
-    display.setCursor(0,0);
-    int xy = i;
-    display.print("          ");
-    display.print("  Ready?      ");
-    display.print(xy);
-    display.print("               ");
-    delay(1000);
-    display.display();
-  }
+        //Draw a counter of the time to begin the game
+        for (int i=0; i < 6; i++) {
+                display.clearDisplay();
+                display.setCursor(0,0);
+                int xy = i;
+                display.print("          ");
+                display.print("  Ready?      ");
+                display.print(xy);
+                display.print("               ");
+                delay(1000);
+                display.display();
+        }
 }
-
+//Check the impact points that you received by laser
 void Laser_Points() {
-  if (Serial.available()) { // If data is available to read,
-    Laser_Point = Serial.read(); // read it and store it in val
-    if (Laser_Point == '1') {
-       if (end > 20) {
-         points = points + 1;
-         oled_LF();
-       }
-       else {
-         while(1) {
-           Game_Over();
-         }
-       }
-    }
-  }
+        if (Serial.available()) { // If data is available to read,
+                Laser_Point = Serial.read(); // read it and store it in val
+                if (Laser_Point == '1') {
+                        points = points + 1;
+                        oled_LF();
+                        end = points;
+                        if (end > 20) {
+                                while(1) {
+                                        Game_Over();
+                                }
+                        }
+                }
+        }
 }
-
-void Shoots() {
-  if (ShootState != lastShootState) {
-    if (ShootState == HIGH) {
-      shoots = shoots + 1;
-      oled_LF();
-    }
-  }
-  lastShootState = ShootState;//Evaluate the last state of the push buttom
+//Check the impact points that you received by IR
+void IR_Points() {
+        if (Serial.available()) { // If data is available to read,
+                IR_Point = Serial.read(); // read it and store it in val
+                if (IR_Point == '2') {
+                                points = points + 5;
+                                oled_LF();
+                                end = points;
+                        if(end > 20) {
+                                while(1) {
+                                        Game_Over();
+                                }
+                        }
+                }
+        }
 }
-
-void oled_timer() {
-  display.clearDisplay();
-  display.setCursor(0,0);
-  timer();
-  display.display();
-  //delay(500);
+//Activate the laser gun
+void Laser_PullUp() {
+        if (laser_value != last_laser_value) {
+                if (last_laser_value == HIGH) {
+                        shoots = shoots + 1;
+                        oled_LF();
+                        SendPluse(); //I call the function pulse
+                        delay(10);
+                }
+        }
+        last_laser_value = laser_value;//Evaluate the last state of the push buttom
 }
+//Shoot one time the laser gun
+void SendPluse() {
+        digitalWrite(ledLaser, HIGH);
+        delay(1000);
+        digitalWrite(ledLaser, LOW);
+        delay(2);
+}
+//Shoot the special Gun
+void Special_Weapon() {
 
+
+}
+//Call the funtion that display the shoots and impacts
 void oled_LF() {
-  display.clearDisplay();
-  display.setCursor(0,0);
-  shoot_life();
-  display.display();
-  delay(1000);
+        display.clearDisplay();
+        display.setCursor(0,0);
+        shoot_life();
+        display.display();
+        //delay(1000);
 }
-
+//Format of the Shoots and impacts
 void shoot_life() {
-  display.print("  Shoots  ");
-  display.print("    ");
-  display.print(shoots);//counter
-  display.print("     ");
-  display.print(" Impacts  ");
-  display.print("    ");
-  display.print(points);//counter
-  display.print("     ");
+        display.print("  Shoots  ");
+        display.print("    ");
+        display.print(shoots);//counter
+        display.print("     ");
+        display.print(" Impacts  ");
+        display.print("    ");
+        display.print(points);//counter
+        display.print("     ");
 }
-
+//Function that call the watch
+void oled_timer() {
+        display.clearDisplay();
+        display.setCursor(0,0);
+        timer();
+        display.display();
+        //delay(500);
+}
+//Format of the watch
 void timer() {
-  display.print("          ");
-  display.print("  TIMER    ");
-  calculateTime();
-  display.print("          ");
-  display.display();
+        display.print("          ");
+        display.print("  TIMER    ");
+        calculateTime();
+        display.print("          ");
+        display.display();
 }
-
-void calculateTime(){
-  long t = millis()/1000 ;
-  int horas = t/3600 ;
-  int minutos = (t % 3600) / 60;
-  int segs = (t - horas*3600 - minutos * 60) % 60 ;
-  int n = sprintf(buffer, "%02d:%02d:%02d ", horas, minutos, segs);
-  display.print(buffer);
+//Function that calculate the time
+void calculateTime() {
+        long t = millis()/1000;
+        int horas = t/3600;
+        int minutos = (t % 3600) / 60;
+        int segs = (t - horas*3600 - minutos * 60) % 60;
+        int n = sprintf(buffer, "%02d:%02d:%02d ", horas, minutos, segs);
+        display.print(buffer);
 }
-
+//Funtion that is used to display the end of the game
 void Game_Over() {
-  display.clearDisplay();
-  display.setCursor(0,0);
-  display.print("GAME OVER");
-  display.display();
-  delay(1000);
+        display.clearDisplay();
+        display.setCursor(0,0);
+        display.print("          ");
+        display.print("   GAME   ");
+        display.print("   OVER   ");
+        display.print("          ");
+        display.display();
+        delay(1000);
 }
