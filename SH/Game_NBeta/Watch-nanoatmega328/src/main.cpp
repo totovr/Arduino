@@ -157,8 +157,9 @@ void SendPluse() {
 //Shoot the special Gun
 void Special_Weapon() {
         if (Serial.available()) { // If data is available to read
-                IR_Point = Serial.read(); // read it and store it in val
+                Super_Gun = Serial.read(); // read it and store it in val
                 if (Super_Gun == '2') {
+                  //here I need to add a bottom for the secondary weapon
                         shoots = shoots + 5;
                         Super_Gun = '0';
                         digitalWrite(ledIR_advice, HIGH);

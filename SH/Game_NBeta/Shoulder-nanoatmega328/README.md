@@ -1,4 +1,4 @@
-# Arduino Shoulder 
+# Arduino Shoulder
 
 ## Serial values
 
@@ -17,9 +17,11 @@ Number |   Purpose
 
 **This PIN are defined for an Arduino Nano**
 
-PIN |     Purpose
-:-: | :-------------:
-A0  | Laser receptor
-A1  |   EMG sensor    
-A2  |   IR receptor
- 5  | Impact received
+PIN |         Purpose
+:-: | :----------------------:
+A0  |      Laser receptor
+A1  |        EMG sensor
+A2  |       IR receptor
+ 5  |     Impact received
+ 7  | led to indicate charging
+ 8  |  led to indicate charge

@@ -3,10 +3,11 @@
 
 #include <Arduino.h>
 #include <IRremote.h>
+#include <SimpleTimer.h>
 
 //Functions
 void Laser_Sensor();
-void EMG();
+void repeatEMG();
 void IR_Receptor();
 
 //Laser receptor
@@ -17,14 +18,17 @@ int LaserValue = 0;
 //EMG Sensor
 const int emgPin = A1;// Pin to read the EMG sensor
 int emg = 0;
+int emgcharging = 7;//led to indicate charging
+int emgfullcharge = 8;//led to indicate full charge
 int emg_counter = 0;
-int emg_counter1 = 0;
+
 
 // IR receptor
 int IR_receptorPin = A2;//Pin used to read IR values
 IRrecv irrecv(IR_receptorPin);//Create an object
 decode_results results;
 int IR_Impact = 5;
+int IR_counter = 0;
 
 //Death variable
 int end = 0;
@@ -33,7 +37,11 @@ void setup() {
         // initialize serial communication at 38400 bits per second:
         Serial.begin(38400);
         pinMode(IR_Impact, OUTPUT);//Turn on pin 5 if we received an impact of IR
+        pinMode(emgPin, INPUT);//Turn on pin A1 if we received an impact of IR
+        pinMode(emgcharging, OUTPUT);//Turn on when emg charging takes place
+        pinMode(emgfullcharge, OUTPUT);//Turn on when IR gun is fully charged
         irrecv.enableIRIn(); // Start the receiver
+        timer.setInterval(1000, repeatEMG);//repeats every 1 second/ can be changed
 }
 
 void loop() {
@@ -41,8 +49,7 @@ void loop() {
         LaserValue = analogRead(LSpin);
         Laser_Sensor();
         //EMG sensor reading
-        emg = analogRead(emgPin);
-        EMG();
+        timer.run();
         //IR reding
         IR_Receptor();
         //Serial.flush();
@@ -64,16 +71,21 @@ void Laser_Sensor() {
         }
         LaserValue = 0;
 }
-//Swe code
-void EMG() {
-        if(emg > 4000) {
-                emg_counter=+1;
-                //If the count is over 500 we will activate the super arm
-                if(emg_counter == 500) {
-                        Serial.write('2'); // Sends '2' to the master to activate especial gun
-                        delay(10);
-                        emg_counter = 0;
-                }
+//Charge the special gun
+void repeatEMG() {
+        emg = analogRead(emgPin);
+        if(emg > 900) {
+                digitalWrite(emgcharging,HIGH);
+                delay(100);
+                digitalWrite(emgcharging,LOW);
+                emg_counter = emg_counter + 1;
+        }
+        else if (emg_counter>10) {
+                digitalWrite(emgfullcharge,HIGH);
+                delay(200);
+                digitalWrite(emgfullcharge,LOW);
+                emg_counter = 0;
+                Serial.write('2');  // Sends '2' to the master to activate the special gun
         }
 }
 //Decode the IR pulse
