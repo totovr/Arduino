@@ -68,7 +68,7 @@ void Laser_Sensor() {
   }
   LaserValue = 0;
 }
-
+//Swe code
 void EMG() {
   if(emg > 4000) {
     emg_counter=+1;
