@@ -101,5 +101,6 @@ void IR_Receptor() {
                         delay(500);
                         digitalWrite(IR_Impact,LOW);
                 }
+         irrecv.resume(); // Receive the next value
         }
 }
