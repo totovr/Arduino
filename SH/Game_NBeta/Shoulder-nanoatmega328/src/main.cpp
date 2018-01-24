@@ -22,7 +22,7 @@ int emgcharging = 7;//led to indicate charging
 int emgfullcharge = 8;//led to indicate full charge
 int emg_counter = 0;
 //declare timer
- SimpleTimer timer;
+ SimpleTimer timer;//object of the SimpleTimer class
 
 // IR receptor
 int IR_receptorPin = A2;//Pin used to read IR values

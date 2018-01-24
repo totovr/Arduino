@@ -69,6 +69,9 @@ void setup() {
         pinMode(ledLaser, OUTPUT); //Set pin 13 as output
         //IR shoot configuration
         pinMode(ledIR_advice, OUTPUT); //Set pin 7 as output
+        //Laser Pull Up bottom
+        pinMode(Laser_PullUPin, INPUT); //Set pin 2 as output
+
 }
 
 // the loop routine runs over and over again forever:
@@ -80,6 +83,7 @@ void loop() {
         //IR Points check if the user was hit by the Special Gun
         IR_Points();
         //Check how many shoots did the player
+        laser_value = digitalRead(Laser_PullUPin);
         Laser_PullUp();
         //Laser Points check if the user was hit by the laser gun
         Special_Weapon();
