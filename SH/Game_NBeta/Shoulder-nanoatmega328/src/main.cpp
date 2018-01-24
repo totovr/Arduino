@@ -21,14 +21,8 @@ int emg = 0;
 int emgcharging = 7;//led to indicate charging
 int emgfullcharge = 8;//led to indicate full charge
 int emg_counter = 0;
-<<<<<<< Updated upstream
-
-//declare timer
-SimpleTimer timer;
-=======
 //declare timer
  SimpleTimer timer;
->>>>>>> Stashed changes
 
 // IR receptor
 int IR_receptorPin = A2;//Pin used to read IR values
