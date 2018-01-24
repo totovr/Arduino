@@ -1,6 +1,6 @@
 ## Serial values
 
-**This values are the ones that are used for the Bluetooth** 
+**This values are the ones that are used for the Bluetooth**
 
 |  Number |       Purpose     |
 |:-------:|:-----------------:|

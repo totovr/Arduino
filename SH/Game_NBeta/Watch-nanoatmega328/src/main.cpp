@@ -47,6 +47,9 @@ int ledLaser =  13;//pin for laser
 int laser_value = 0;
 int last_laser_value = 0;// previous state of the button
 int shoots = 0;// shoots counter variable
+//IR Shoot
+char Super_Gun;
+int ledIR = 7;//pin for IR
 
 // the setup routine runs once when you press reset:
 void setup() {
@@ -74,7 +77,10 @@ void loop() {
         IR_Points();
         //Check how many shoots did the player
         Laser_PullUp();
-        Serial.flush();
+        //Laser Points check if the user was hit by the laser gun
+        Special_Weapon();
+        //clean the Serial port
+        //Serial.flush();
 }
 
 void TheGame() {
@@ -93,10 +99,11 @@ void TheGame() {
 }
 //Check the impact points that you received by laser
 void Laser_Points() {
-        if (Serial.available()) { // If data is available to read,
+        if (Serial.available()) { // If data is available to read
                 Laser_Point = Serial.read(); // read it and store it in val
                 if (Laser_Point == '1') {
                         points = points + 1;
+                        Laser_Point = '0';
                         oled_LF();
                         end = points;
                         if (end > 20) {
@@ -109,12 +116,13 @@ void Laser_Points() {
 }
 //Check the impact points that you received by IR
 void IR_Points() {
-        if (Serial.available()) { // If data is available to read,
+        if (Serial.available()) { // If data is available to read
                 IR_Point = Serial.read(); // read it and store it in val
-                if (IR_Point == '2') {
+                if (IR_Point == '3') {
                                 points = points + 5;
                                 oled_LF();
                                 end = points;
+                                IR_Point = '0';
                         if(end > 20) {
                                 while(1) {
                                         Game_Over();
@@ -144,8 +152,13 @@ void SendPluse() {
 }
 //Shoot the special Gun
 void Special_Weapon() {
-
-
+        if (Serial.available()) { // If data is available to read
+                IR_Point = Serial.read(); // read it and store it in val
+                if (Super_Gun == '2') {
+                        shoots = shoots + 5;
+                        Super_Gun = '0';
+                }
+        }
 }
 //Call the funtion that display the shoots and impacts
 void oled_LF() {

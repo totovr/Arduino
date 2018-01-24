@@ -4,8 +4,6 @@
 #include <Arduino.h>
 #include <IRremote.h>
 
-//Decode values
-
 //Laser receptor
 void Laser_Sensor();
 const int LSpin = A0;// Pin to read the laser sensor
@@ -34,61 +32,61 @@ int IR_Impact = 5;
 int end = 0;
 
 void setup() {
-  // initialize serial communication at 38400 bits per second:
-  Serial.begin(38400);
-  pinMode(IR_Impact, OUTPUT);//Turn on pin 5 if we received an impact of IR
+        // initialize serial communication at 38400 bits per second:
+        Serial.begin(38400);
+        pinMode(IR_Impact, OUTPUT);//Turn on pin 5 if we received an impact of IR
 }
 
 void loop() {
-  //Read laser sensors
-  LaserValue = analogRead(LSpin);
-  Laser_Sensor();
-  //EMG sensor reading
-  emg = analogRead(emgPin);
-  EMG();
-  //IR reding
-  IR_Value = digitalRead(IR_PullUPin);
-  IR_Receptor();
-  //Serial.flush();
-  Serial.write('0');//Avoid errors
- }
+        //Read laser sensors
+        LaserValue = analogRead(LSpin);
+        Laser_Sensor();
+        //EMG sensor reading
+        emg = analogRead(emgPin);
+        EMG();
+        //IR reding
+        IR_Value = digitalRead(IR_PullUPin);
+        IR_Receptor();
+        //Serial.flush();
+        //Serial.write('0');//Avoid errors
+}
 
 //Decode
 // Read the laser sensor to count the points
 void Laser_Sensor() {
-  if(LaserValue > 180) {
-    if(end < 20) {
-      end=+1;
-      Serial.write('1'); // Sends '1' to the master to count as one point
-    }//If we detect that the end variable is over 20 we will do a infinite bucle
-    else {
-      while(1) {
-      }
-    }
-  }
-  LaserValue = 0;
+        if(LaserValue > 180) {
+                if(end < 20) {
+                        end=+1;
+                        Serial.write('1'); // Sends '1' to the master to count as one point
+                }//If we detect that the end variable is over 20 we will do a infinite bucle
+                else {
+                        while(1) {
+                        }
+                }
+        }
+        LaserValue = 0;
 }
 //Swe code
 void EMG() {
-  if(emg > 4000) {
-    emg_counter=+1;
-    //If the count is over 20 we will activate the super arm
-    if(emg_counter == 500) {
-      Serial.write('2'); // Sends '2' to the master to activate especial gun
-      delay(10);
-      emg_counter = 0;
-    }
-  }
+        if(emg > 4000) {
+                emg_counter=+1;
+                //If the count is over 500 we will activate the super arm
+                if(emg_counter == 500) {
+                        Serial.write('2'); // Sends '2' to the master to activate especial gun
+                        delay(10);
+                        emg_counter = 0;
+                }
+        }
 }
 
 void IR_Receptor() {
-  digitalWrite(IR_Impact,LOW);
-  if (irrecv.decode(&results)) {
-    if (results.decode_type == SONY) {
-      Serial.write('3'); // Sends '3' to the master to advice that we were shoot by IR
-      digitalWrite(IR_Impact,HIGH);//LED will turn on because we were hit
-      delay(500);
-      digitalWrite(IR_Impact,LOW);
-    }
-  }
+        digitalWrite(IR_Impact,LOW);
+        if (irrecv.decode(&results)) {
+                if (results.decode_type == SONY) {
+                        Serial.write('3'); // Sends '3' to the master to advice that we were shoot by IR
+                        digitalWrite(IR_Impact,HIGH);//LED will turn on because we were hit
+                        delay(500);
+                        digitalWrite(IR_Impact,LOW);
+                }
+        }
 }
