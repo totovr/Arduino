@@ -22,7 +22,7 @@ int emgcharging = 7;//led to indicate charging
 int emgfullcharge = 8;//led to indicate full charge
 int emg_counter = 0;
 //declare objects of SimpleTimer library
- SimpleTimer timer;//object of the SimpleTimer class
+ SimpleTimer EMG_read;//object of the SimpleTimer class
  SimpleTimer laser_read;
  SimpleTimer IR_read;
 
@@ -44,7 +44,7 @@ void setup() {
         pinMode(emgcharging, OUTPUT);//Turn on when emg charging takes place
         pinMode(emgfullcharge, OUTPUT);//Turn on when IR gun is fully charged
         irrecv.enableIRIn(); // Start the receiver
-        timer.setInterval(1000, repeatEMG);//repeats every 1 second
+        EMG_read.setInterval(1000, repeatEMG);//repeats every 1 second
         laser_read.setInterval(100, Laser_Sensor);//repeats every 0.1 seconds can be changed
         IR_read.setInterval(100, IR_Receptor);//repeats every 0.1 seconds can be changed
 }
@@ -53,7 +53,7 @@ void loop() {
         //Read laser sensors
         laser_read.run();
         //EMG sensor reading
-        timer.run();
+        EMG_read.run();
         //IR reding
         IR_read.run();
 }
@@ -84,7 +84,7 @@ void repeatEMG() {
                 emg_counter = emg_counter + 1;
         }
         else if (emg_counter>10) {
-                digitalWrite(emgfullcharge,HIGH);
+                digitalWrite(emgfullcharge,HIGH);//I put a led in the watch when is full maybe this is not necessary
                 delay(200);
                 digitalWrite(emgfullcharge,LOW);
                 emg_counter = 0;
