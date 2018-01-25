@@ -1,4 +1,4 @@
-# Watch 
+# Watch
 
 ## Serial values
 
@@ -17,14 +17,15 @@ Number |   Purpose
 
 **This PIN are defined for an Arduino Nano**
 
-PIN |    Purpose
-:-: | :-----------:
- 2  | Laser Bottom
- 6  | Super Gun LED
- 8  |     OLED
- 9  |     OLED
-10  |     OLED
-11  |     OLED
-12  |     OLED
-13  |   Laser Gun
-A3  |   Super Gun
+PIN |       Purpose
+:-: | :-----------------:
+ 2  |    Laser Bottom
+ 6  |    Super Gun LED
+ 7  | Super Weapon Bottom
+ 8  |        OLED
+ 9  |        OLED
+10  |        OLED
+11  |        OLED
+12  |        OLED
+13  |      Laser LED
+A3  |       IR LED

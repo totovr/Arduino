@@ -11,10 +11,11 @@
 //Functions
 void TheGame();//Show a message before the game start
 void Laser_Points();//Count the laser impacts
-void Laser_PullUp();//Activate the laser gun
+void Laser_Weapon();//Activate the laser gun
 void IR_Points();//Count the IR impacts
 void SendPluse();//Send the laser pulse
 void Special_Weapon();//Activate the special weapon
+void Special_Weapon_Shoot();// if we press the bottom we can shoot the weapon
 void oled_timer();//Display the time
 void oled_LF();//Display of the life and impact
 void shoot_life();//format of the life and impact
@@ -22,9 +23,9 @@ void timer();//format of the clock
 void calculateTime();//Function that calculate the time
 void Game_Over();//Function that is called when the game is over
 
-// If using software SPI (the default case):
-#define OLED_MOSI  11   //D1
-#define OLED_CLK   12   //D0
+// If using software SPI
+#define OLED_MOSI  11
+#define OLED_CLK   12
 #define OLED_DC    9
 #define OLED_CS    8
 #define OLED_RESET 10
@@ -42,16 +43,21 @@ char IR_Point;
 int end = 0;
 
 //Laser shoot
-const int Laser_PullUPin = 2;  //pin for pullup resistor D2
+const int Laser_WeaponIn = 2;//pin for pullup resistor D2
 int ledLaser =  13;//pin for laser
 int laser_value = 0;
 int last_laser_value = 0;// previous state of the button
 int shoots = 0;// shoots counter variable
-//IR Shoot
-IRsend irsend; //create a IRsend object
+//IR Shoot (Special Weapon)
+IRsend irsend; //create a IRsend object just apply for pin 3 and 9 in ATMega328
 char Super_Gun;//In this variable we will save the data that was send by the other Arduino
-int ledIR = A3;//pin for IR shoot
+int ledIR = A3;//pin for IR led -- Kishishita
 int ledIR_advice = 6;//if the special gun is activated a led will turn on
+int IR_WeaponIn = 7;//here we read the bottom of the gun
+int ledIR_state = 0;//if we push the bottom the gun will be shoot
+int last_ledIR_state = 0;//pin for pullup resistor
+int special_weapon_active = 0;
+int special_weapon_noactive = 0;
 
 // the setup routine runs once when you press reset:
 void setup() {
@@ -68,9 +74,11 @@ void setup() {
         //Laser shoot configuration
         pinMode(ledLaser, OUTPUT); //Set pin 13 as output
         //IR shoot configuration
-        pinMode(ledIR_advice, OUTPUT); //Set pin 7 as output
+        pinMode(ledIR_advice, OUTPUT); //Set pin 6 as output
         //Laser Pull Up bottom
-        pinMode(Laser_PullUPin, INPUT); //Set pin 2 as output
+        pinMode(Laser_WeaponIn, INPUT); //Set pin 2 as input
+        //IR Pull Up bottom
+        pinMode(IR_WeaponIn, INPUT); //Set pin 7 as input
 
 }
 
@@ -83,12 +91,10 @@ void loop() {
         //IR Points check if the user was hit by the Special Gun
         IR_Points();
         //Check how many shoots did the player
-        laser_value = digitalRead(Laser_PullUPin);
-        Laser_PullUp();
+        laser_value = digitalRead(Laser_WeaponIn);
+        Laser_Weapon();
         //Laser Points check if the user was hit by the laser gun
         Special_Weapon();
-        //clean the Serial port
-        //Serial.flush();
 }
 
 void TheGame() {
@@ -140,7 +146,7 @@ void IR_Points() {
         }
 }
 //Activate the laser gun
-void Laser_PullUp() {
+void Laser_Weapon() {
         if (laser_value != last_laser_value) {
                 if (laser_value == HIGH) {
                         shoots = shoots + 1;
@@ -163,16 +169,27 @@ void Special_Weapon() {
         if (Serial.available()) { // If data is available to read
                 Super_Gun = Serial.read(); // read it and store it in val
                 if (Super_Gun == '2') {
-                  //here I need to add a bottom for the secondary weapon
-                        shoots = shoots + 5;
-                        Super_Gun = '0';
+                        //this led advice that the weapon can be shoot
                         digitalWrite(ledIR_advice, HIGH);
-                        irsend.sendSony(0x68B90, A3);// the second statment is the PIN that we will use
-                        delay(500);
-                        digitalWrite(ledIR_advice, LOW);
+                        ledIR_state = digitalRead(IR_WeaponIn);
+                        if (ledIR_state != last_ledIR_state) {
+                                if (ledIR_state == HIGH) {
+                                        Special_Weapon_Shoot();
+                                }
+                        }
+                        last_ledIR_state = ledIR_state;//Evaluate the last state of the push buttom
                 }
         }
 }
+
+void Special_Weapon_Shoot() {
+  shoots = shoots + 5;
+  Super_Gun = '0';
+  irsend.sendSony(0x68B90, A3);// the second statment is the PIN that we will use
+  delay(500);
+  digitalWrite(ledIR_advice, LOW);
+}
+
 //Call the funtion that display the shoots and impacts
 void oled_LF() {
         display.clearDisplay();
