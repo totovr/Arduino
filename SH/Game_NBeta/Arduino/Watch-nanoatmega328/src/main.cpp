@@ -52,7 +52,7 @@ int shoots = 0;// shoots counter variable
 //IR Shoot (Special Weapon)
 IRsend irsend; //create a IRsend object just apply for pin 3 and 9 in ATMega328
 char Super_Gun;//In this variable we will save the data that was send by the other Arduino
-int ledIR = A3;//pin for IR led -- Kishishita
+//int ledIR = A3;//Is ok to delate this? -- Kishishita
 int ledIR_advice = 6;//if the special gun is activated a led will turn on
 int IR_WeaponIn = 7;//here we read the bottom of the gun
 int ledIR_state = 0;//if we push the bottom the gun will be shoot
@@ -196,7 +196,7 @@ void Special_Weapon_Activated() {
 
 void Special_Weapon_Shoot() {
   shoots = shoots + 5;
-  irsend.sendSony(0x68B90, A3);// the second statment is the PIN that we will use
+  irsend.sendSony(0x68B90, 20);// the second statement is the number of bits
   delay(500);
   digitalWrite(ledIR_advice, LOW);
 }
