@@ -79,7 +79,7 @@ void dumpTIMER() {
 
 void dumpTimerPin() {
   Serial.print(F("IR Tx Pin: "));
-  Serial.println(SEND_PIN);
+  Serial.println(TIMER_PWM_PIN);
 }
 
 void dumpClock() {
