@@ -91,7 +91,6 @@ void loop() {
         //IR Points check if the user was hit by the Special Gun
         IR_Points();
         //Check how many shoots did the player
-        laser_value = digitalRead(Laser_WeaponIn);
         Laser_Weapon();
         //Check if we charge the super weapon
         Special_Weapon();
@@ -149,6 +148,7 @@ void IR_Points() {
 }
 //Activate the laser gun
 void Laser_Weapon() {
+        laser_value = digitalRead(Laser_WeaponIn);
         if (laser_value != last_laser_value) {
                 if (laser_value == HIGH) {
                         shoots = shoots + 1;
