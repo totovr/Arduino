@@ -14,11 +14,12 @@ void Laser_Points();//Count the laser impacts
 void Laser_Weapon();//Activate the laser gun
 void IR_Points();//Count the IR impacts
 void SendPluse();//Send the laser pulse
-void Special_Weapon();//Activate the special weapon
-void Special_Weapon_Shoot();// if we press the bottom we can shoot the weapon
+void Special_Weapon();//Check if the Super Weapon is activated
+void Special_Weapon_Activated();//If the bottom is pressed shoot the special weapon
+void Special_Weapon_Shoot();//contain the IR coding
 void oled_timer();//Display the time
-void oled_LF();//Display of the life and impact
-void shoot_life();//format of the life and impact
+void oled_LF();//Display of the life and impacts
+void shoot_life();//format of the life and impacts
 void timer();//format of the clock
 void calculateTime();//Function that calculate the time
 void Game_Over();//Function that is called when the game is over
@@ -57,7 +58,6 @@ int IR_WeaponIn = 7;//here we read the bottom of the gun
 int ledIR_state = 0;//if we push the bottom the gun will be shoot
 int last_ledIR_state = 0;//pin for pullup resistor
 int special_weapon_active = 0;
-int special_weapon_noactive = 0;
 
 // the setup routine runs once when you press reset:
 void setup() {
@@ -93,8 +93,10 @@ void loop() {
         //Check how many shoots did the player
         laser_value = digitalRead(Laser_WeaponIn);
         Laser_Weapon();
-        //Laser Points check if the user was hit by the laser gun
+        //Check if we charge the super weapon
         Special_Weapon();
+        //If is charged activate the weapo with a bottom
+        Special_Weapon_Activated();
 }
 
 void TheGame() {
@@ -171,20 +173,29 @@ void Special_Weapon() {
                 if (Super_Gun == '2') {
                         //this led advice that the weapon can be shoot
                         digitalWrite(ledIR_advice, HIGH);
-                        ledIR_state = digitalRead(IR_WeaponIn);
-                        if (ledIR_state != last_ledIR_state) {
-                                if (ledIR_state == HIGH) {
-                                        Special_Weapon_Shoot();
-                                }
+                        //this varible will save the state that the special weapon is charged
+                        special_weapon_active = 2;
                         }
-                        last_ledIR_state = ledIR_state;//Evaluate the last state of the push buttom
-                }
         }
+}
+
+void Special_Weapon_Activated() {
+  ledIR_state = digitalRead(IR_WeaponIn);
+  if (ledIR_state != last_ledIR_state) {
+          if (ledIR_state == HIGH) {
+                  //if the weapon is charged it will shoot
+                  if (special_weapon_active == 2) {
+                  Special_Weapon_Shoot();
+                  special_weapon_active = 0;
+                  Super_Gun = '0';
+                }
+          }
+  }
+  last_ledIR_state = ledIR_state;//Evaluate the last state of the push buttom
 }
 
 void Special_Weapon_Shoot() {
   shoots = shoots + 5;
-  Super_Gun = '0';
   irsend.sendSony(0x68B90, A3);// the second statment is the PIN that we will use
   delay(500);
   digitalWrite(ledIR_advice, LOW);
