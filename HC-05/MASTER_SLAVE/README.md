@@ -43,7 +43,7 @@ This program pair two HC-05 module to blink one led everytime that a bottom is p
 
 * Check the speed by:
 
-      AT+ UART?
+      AT+UART?
       
 ###### Default baud rate is 9600 
   
