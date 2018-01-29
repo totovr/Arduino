@@ -109,6 +109,16 @@ this means that you are in AT-COMMAND mode.
 
 ###### Ensure to select “BOTH NL & CR”  & Baud Rate as 9600 at the bottom of the serial monitor, in some cases you have to setup the Baud Rate at 38400.This is very important as the Bluetooth module HC05 expects both Carriage Return and Line Feed after every AT command.
 
+* Check the speed by:
+
+      AT+ UART?
+
+###### Default baud rate is 9600 
+  
+* To change the speed tape the next command, where Param is baud rate, Param2 is stop bit, Param3 is parity bit.
+      
+      AT+UART=<Param>,<Param2>,<Param3>
+
 * Lets check the name of the module typing:
 
       AT+NAME?
