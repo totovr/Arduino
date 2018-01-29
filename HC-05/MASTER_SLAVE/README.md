@@ -148,11 +148,9 @@ this means that you are in AT-COMMAND mode.
 
   ###### 0 for SLAVE & 1 for Master. Leave it as 0 as we want this module to be SLAVE.
 
-* Typing:
+* We want to connect to one specific ADDRESS, so type CMODE=0 allow to setup this:
 
-      AT+CMODE=0
-
-  CMODE = 0 allows to connect to only one specified address.  
+      AT+CMODE=0  
 
 ##### Start SPP profile library (needed to do any Bluetooth transmitting/receiving):
 
@@ -196,3 +194,7 @@ this means that you are in AT-COMMAND mode.
 Command|Response
 :-----:|:------:
 AT+ORGL|   OK
+
+#### Bibliography
+
+* [HC-05 commands](https://github.com/totovr/Arduino/blob/master/HC-05/hc-05_at_commands.pdf) *
