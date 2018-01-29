@@ -197,4 +197,4 @@ AT+ORGL|   OK
 
 #### Bibliography
 
-* [HC-05 commands](https://github.com/totovr/Arduino/blob/master/HC-05/hc-05_at_commands.pdf) *
+* [HC-05 commands](https://github.com/totovr/Arduino/blob/master/HC-05/hc-05_at_commands.pdf) 
