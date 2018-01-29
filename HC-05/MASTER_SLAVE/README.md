@@ -150,9 +150,9 @@ this means that you are in AT-COMMAND mode.
 
 * Typing:
 
-      AT+CMODE=1
+      AT+CMODE=0
 
-  Allows to connect you to any address, default is CMODE = 0 which allows connection to only bound address.  
+  CMODE = 0 allows to connect to only one specified address.  
 
 ##### Start SPP profile library (needed to do any Bluetooth transmitting/receiving):
 
