@@ -112,7 +112,7 @@ this means that you are in AT-COMMAND mode.
 
 * Check the speed by:
 
-      AT+ UART?
+      AT+UART?
 
 ###### Default baud rate is 9600 
   
