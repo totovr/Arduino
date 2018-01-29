@@ -188,3 +188,9 @@ this means that you are in AT-COMMAND mode.
 | RX      |     TX    |
 
 **Every time that you upload a program to the board is necessary to disconnect the RX and TX pins of the module with the board**
+
+#### To restore the default values 
+      
+Command|Response
+:-----:|:------:
+AT+ORGL|   OK
