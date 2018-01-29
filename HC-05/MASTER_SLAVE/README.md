@@ -162,13 +162,15 @@ this means that you are in AT-COMMAND mode.
 
 **If you get ERROR(17) , it means you’ve already issued this command & you can continue ignoring the error.**
 
-**Note that for the next point we will need the address of the SLAVE that you previously write, remember to change the colons to commas**
+**NOTE that for the next point we will need the address of the SLAVE that you previously write, remember to change the colons to commas**
+
+**NOTE to link the Bluetooth module the Slave must be ON**
 
 * We will pair the SLAVE module with the MASTER module typing the next command:
 
       AT+LINK=<address>
 
-  **Also you can check the AT+BIND command**
+  **Also you can check the AT+BIND command if you want to connect specifically to one ADDRESS**
 
 * Turn off the Arduino and turn it on Again
 
