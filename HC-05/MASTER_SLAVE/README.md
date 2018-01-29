@@ -158,7 +158,9 @@ this means that you are in AT-COMMAND mode.
 
       AT+INIT  
 
-**If you get ERROR(17) , it means you’ve already issued this command & you can continue ignoring the error.**
+**If you get ERROR(17) , it means you’ve already issued this command & you can continue ignoring the error**
+
+**NOTE sometimes deppending of the manufacturer you need to keep pressed the Pull Pin**
 
 **NOTE that for the next point we will need the address of the SLAVE that you previously write, remember to change the colons to commas**
 
