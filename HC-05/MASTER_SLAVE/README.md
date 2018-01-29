@@ -38,7 +38,7 @@ this means that you are in AT-COMMAND mode.
 
       OK
 
-###### Ensure to select “BOTH NL & CR”  & Baud Rate as 9600 at the bottom of the serial monitor.This is very important as the Bluetooth module HC05 expects both Carriage Return and Line Feed after every AT command.
+###### Ensure to select “BOTH NL & CR”  & Baud Rate as 9600 at the bottom of the serial monitor, in some cases you have to setup the Baud Rate at 38400.This is very important as the Bluetooth module HC05 expects both Carriage Return and Line Feed after every AT command.
 
 * Check the speed by:
 
@@ -107,7 +107,7 @@ this means that you are in AT-COMMAND mode.
 
       OK
 
-###### Ensure to select “BOTH NL & CR”  & Baud Rate as 38400 at the bottom of the serial monitor.This is very important as the Bluetooth module HC05 expects both Carriage Return and Line Feed after every AT command.
+###### Ensure to select “BOTH NL & CR”  & Baud Rate as 9600 at the bottom of the serial monitor, in some cases you have to setup the Baud Rate at 38400.This is very important as the Bluetooth module HC05 expects both Carriage Return and Line Feed after every AT command.
 
 * Lets check the name of the module typing:
 
