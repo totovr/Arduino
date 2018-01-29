@@ -12,4 +12,3 @@ Name |  Role  | Baud Rate |    Address
  M4  | MASTER |  115200   |   21,13,a2ce
  S5  | SLAVE  |  115200   |   21,13,e72f
 
-AT+BIND=21:,13,22f38
