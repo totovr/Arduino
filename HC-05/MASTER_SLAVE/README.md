@@ -131,7 +131,7 @@ this means that you are in AT-COMMAND mode.
 
       AT+ROLE?
 
-  You can change it by:
+  You can change it to **Master** typing:
 
       AT+ROLE=1    
 
