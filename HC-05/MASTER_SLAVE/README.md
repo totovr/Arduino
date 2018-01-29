@@ -23,10 +23,11 @@ This program pair two HC-05 module to blink one led everytime that a bottom is p
 | RX      |     RX    | 
 | EN      |    3.3V   | 
 
+##### Is important to connect the EN pin to 3.3V, if is not connected some AT commands will not work
+
 ### Slave Configuration
 
-* Before turn on the Arduino keep pressed the bottom of the HC-05 module, after turn it on the light will be blinking slower,
-this means that you are in AT-COMMAND mode.
+* **Before turn on the Arduino keep pressed the bottom of the HC-05 module**, after turn it on the light will be blinking slower, this means that you are in AT-COMMAND mode.
 
 * Open an Arduino empty file and upload it to the board
 
