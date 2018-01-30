@@ -63,8 +63,8 @@ void loop() {
 void Laser_Sensor() {
         LaserValue = analogRead(LSpin);
         if(LaserValue > 180) {
+          
                 if(end < 20) {
-                        end=+1;
                         Serial.write('1'); // Sends '1' to the master to count as one point
                 }//If we detect that the end variable is over 20 we will do a infinite bucle
                 else {
