@@ -100,9 +100,9 @@ void IR_Receptor() {
         if (irrecv.decode(&results)) {
                 if (results.decode_type == SONY) {
                         Serial.write('3'); // Sends '3' to the master to advice that we were shoot by IR
-                        digitalWrite(IR_Impact,HIGH);//LED will turn on because we were hit
-                        delay(500);
-                        digitalWrite(IR_Impact,LOW);
+                        //digitalWrite(IR_Impact,HIGH);//LED will turn on because we were hit
+                        //delay(500);
+                        //digitalWrite(IR_Impact,LOW);
                 }
                 irrecv.resume(); // Receive the next value
         }
