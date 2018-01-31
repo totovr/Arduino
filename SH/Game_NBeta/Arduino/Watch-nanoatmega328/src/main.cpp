@@ -55,13 +55,14 @@ int ledLaser = 13;//pin for laser
 int laser_value = 0;
 int last_laser_value = 0;// previous state of the button
 int shoots = 0;// shoots counter variable
+//IR shoot
 IRsend irsend; //create a IRsend object just apply for pin 3 and 9 in ATMega328
 char Super_Gun;//In this variable we will save the data that was send by the other Arduino
 int ledIR_advice = 6;//if the special gun is activated a led will turn on
 int IR_WeaponIn = 7;//here we read the bottom of the gun
 int ledIR_state = 0;//if we push the bottom the gun will be shoot
-int last_ledIR_state = 0;//pin for pullup resistor
-int special_weapon_active = 0;
+int last_ledIR_state = 0;//Save the last state of the bottom
+int special_weapon_active = 0;//Variable to know if the IR was shooted
 
 // the setup routine runs once when you press reset:
 void setup() {
@@ -125,7 +126,7 @@ void Laser_Points() {
                         points = points + 1;
                         Laser_Point = '0';
                         oled_LF();
-                        delay(2000);
+                        delay(1500);
                         end = points;
                         if (end > 20) {
                                 while(1) {
@@ -160,7 +161,6 @@ void Laser_Weapon() {
                         shoots = shoots + 1;
                         oled_LF();
                         SendPluse(); //I call the function pulse
-                        //delay(10);
                 }
         }
         last_laser_value = laser_value;//Evaluate the last state of the push buttom
@@ -170,7 +170,6 @@ void SendPluse() {
         digitalWrite(ledLaser, HIGH);
         delay(2000);
         digitalWrite(ledLaser, LOW);
-        //delay(10);
 }
 //Shoot the special Gun
 void Special_Weapon() {
@@ -186,14 +185,16 @@ void Special_Weapon() {
 }
 
 void Special_Weapon_Activated() {
+  //Check the state of the bottom
   ledIR_state = digitalRead(IR_WeaponIn);
+  //Check if the state of the bottom changed
   if (ledIR_state != last_ledIR_state) {
           if (ledIR_state == HIGH) {
                   //if the weapon is charged it will shoot
                   if (special_weapon_active == 2) {
                   Special_Weapon_Shoot();
                   special_weapon_active = 0;
-                  Super_Gun = '0';
+                  //Super_Gun = '0';
                 }
           }
   }

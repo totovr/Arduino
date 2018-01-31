@@ -15,7 +15,7 @@ Number |   Purpose
 
 ## Map of Micro controller PIN usage
 
-**This PINS are defined for an Arduino Nano board**
+**This PIN are defined for an Arduino Nano**
 
 PIN |         Purpose
 :-: | :----------------------:

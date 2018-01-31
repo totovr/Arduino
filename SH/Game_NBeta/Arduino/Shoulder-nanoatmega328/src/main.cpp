@@ -68,7 +68,7 @@ void Laser_Sensor() {
         if(LaserValue > 350) {
                 if(end < 20) {
                         Serial.write('1'); // Sends '1' to the master to count as one point
-                        delay(10);
+                        delay(200);
                 }//If we detect that the end variable is over 20 we will do a infinite bucle
                 else {
                         while(1) {
