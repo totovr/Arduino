@@ -46,7 +46,7 @@ void setup() {
         pinMode(emgfullcharge, OUTPUT);//Turn on when IR gun is fully charged
         irrecv.enableIRIn(); // Start the receiver
         EMG_read.setInterval(1000, repeatEMG);//repeats every 1 second
-        laser_read.setInterval(200, Laser_Sensor);//repeats every 0.1 seconds can be changed
+        laser_read.setInterval(100, Laser_Sensor);//repeats every 0.1 seconds can be changed
         IR_read.setInterval(100, IR_Receptor);//repeats every 0.1 seconds can be changed
 }
 
@@ -65,7 +65,7 @@ void Laser_Sensor() {
         LaserValue = analogRead(LSpin);
         //Serial.print(LaserValue);
         //delay(2000);
-        if(LaserValue > 360) {
+        if(LaserValue > 350) {
                 if(end < 20) {
                         Serial.write('1'); // Sends '1' to the master to count as one point
                         delay(10);

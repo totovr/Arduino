@@ -156,11 +156,11 @@ void IR_Points() {
 void Laser_Weapon() {
         laser_value = digitalRead(Laser_WeaponIn);
         if (laser_value != last_laser_value) {
-                if (laser_value == HIGH) {
+                if (laser_value == LOW) {
                         shoots = shoots + 1;
                         oled_LF();
                         SendPluse(); //I call the function pulse
-                        delay(10);
+                        //delay(10);
                 }
         }
         last_laser_value = laser_value;//Evaluate the last state of the push buttom
@@ -170,7 +170,7 @@ void SendPluse() {
         digitalWrite(ledLaser, HIGH);
         delay(2000);
         digitalWrite(ledLaser, LOW);
-        delay(2);
+        //delay(10);
 }
 //Shoot the special Gun
 void Special_Weapon() {
