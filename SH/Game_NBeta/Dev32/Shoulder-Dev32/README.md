@@ -25,3 +25,7 @@ PIN |         Purpose
  5  |     Impact received
  7  | led to indicate charging
  8  |  led to indicate charge
+
+### PIN MAP
+
+<img src="https://github.com/totovr/Arduino/blob/master/SH/Images/esp32_pinmap.png" width="600">

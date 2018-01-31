@@ -7,6 +7,7 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <IRremote.h>
+#include <SimpleTimer.h>
 
 //Functions
 void TheGame();//Show a message before the game start
@@ -34,9 +35,15 @@ char buffer[10];
 Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
 
 //Receptor
+
 //Laser Point
 int points = 0;
 char Laser_Point;
+
+//declare objects of SimpleTimer library
+SimpleTimer laser_read_serial;
+SimpleTimer IR_read_serial;
+
 //IR Point
 char IR_Point;
 
@@ -45,19 +52,18 @@ int end = 0;
 
 //Laser shoot
 const int Laser_WeaponIn = 2;//pin for pullup resistor D2
-int ledLaser =  13;//pin for laser
+int ledLaser = 13;//pin for laser
 int laser_value = 0;
 int last_laser_value = 0;// previous state of the button
 int shoots = 0;// shoots counter variable
-//IR Shoot (Special Weapon)
+//IR shoot
 IRsend irsend; //create a IRsend object just apply for pin 3 and 9 in ATMega328
 char Super_Gun;//In this variable we will save the data that was send by the other Arduino
-//int ledIR = A3;//Is ok to delate this? -- Kishishita
 int ledIR_advice = 6;//if the special gun is activated a led will turn on
 int IR_WeaponIn = 7;//here we read the bottom of the gun
 int ledIR_state = 0;//if we push the bottom the gun will be shoot
-int last_ledIR_state = 0;//pin for pullup resistor
-int special_weapon_active = 0;
+int last_ledIR_state = 0;//Save the last state of the bottom
+int special_weapon_active = 0;//Variable to know if the IR was shooted
 
 // the setup routine runs once when you press reset:
 void setup() {
@@ -79,7 +85,8 @@ void setup() {
         pinMode(Laser_WeaponIn, INPUT); //Set pin 2 as input
         //IR Pull Up bottom
         pinMode(IR_WeaponIn, INPUT); //Set pin 7 as input
-
+        laser_read_serial.setInterval(1000, Laser_Points);//repeats every 1 second, can be changed
+        IR_read_serial.setInterval(1000, IR_Points);//repeats every 1 second, can be changed
 }
 
 // the loop routine runs over and over again forever:
@@ -87,9 +94,11 @@ void loop() {
         //Just will set this display for the first 5 seconds
         oled_timer();
         //Laser Points check if the user was hit by the laser gun
-        Laser_Points();
+        //Laser_Points();
+        laser_read_serial.run();
         //IR Points check if the user was hit by the Special Gun
-        IR_Points();
+        //IR_Points();
+        IR_read_serial.run();
         //Check how many shoots did the player
         Laser_Weapon();
         //Check if we charge the super weapon
@@ -120,8 +129,9 @@ void Laser_Points() {
                         points = points + 1;
                         Laser_Point = '0';
                         oled_LF();
+                        delay(1500);
                         end = points;
-                        if (end > 20) {
+                        if (end >= 20) {
                                 while(1) {
                                         Game_Over();
                                 }
@@ -136,9 +146,10 @@ void IR_Points() {
                 if (IR_Point == '3') {
                         points = points + 5;
                         oled_LF();
+                        delay(1500);
                         end = points;
                         IR_Point = '0';
-                        if(end > 20) {
+                        if(end >= 20) {
                                 while(1) {
                                         Game_Over();
                                 }
@@ -150,11 +161,10 @@ void IR_Points() {
 void Laser_Weapon() {
         laser_value = digitalRead(Laser_WeaponIn);
         if (laser_value != last_laser_value) {
-                if (laser_value == HIGH) {
+                if (laser_value == LOW) {
                         shoots = shoots + 1;
                         oled_LF();
                         SendPluse(); //I call the function pulse
-                        delay(10);
                 }
         }
         last_laser_value = laser_value;//Evaluate the last state of the push buttom
@@ -162,9 +172,8 @@ void Laser_Weapon() {
 //Shoot one time the laser gun
 void SendPluse() {
         digitalWrite(ledLaser, HIGH);
-        delay(1000);
+        delay(2000);
         digitalWrite(ledLaser, LOW);
-        delay(2);
 }
 //Shoot the special Gun
 void Special_Weapon() {
@@ -180,7 +189,9 @@ void Special_Weapon() {
 }
 
 void Special_Weapon_Activated() {
+  //Check the state of the bottom
   ledIR_state = digitalRead(IR_WeaponIn);
+  //Check if the state of the bottom changed
   if (ledIR_state != last_ledIR_state) {
           if (ledIR_state == HIGH) {
                   //if the weapon is charged it will shoot
