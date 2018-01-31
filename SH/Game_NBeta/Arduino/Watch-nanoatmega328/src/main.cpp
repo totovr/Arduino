@@ -145,7 +145,7 @@ void IR_Points() {
                         oled_LF();
                         end = points;
                         IR_Point = '0';
-                        if(end > 20) {
+                        if(end >= 20) {
                                 while(1) {
                                         Game_Over();
                                 }
