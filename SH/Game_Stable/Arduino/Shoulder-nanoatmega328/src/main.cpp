@@ -23,15 +23,15 @@ int emgfullcharge = 8;//led to indicate full charge
 int emg_counter = 0;
 
 //declare objects of SimpleTimer library
- SimpleTimer EMG_read;//object of the SimpleTimer class
- SimpleTimer laser_read;
- SimpleTimer IR_read;
+SimpleTimer EMG_read; //Don't write "timer" as and object
+SimpleTimer laser_read;
+SimpleTimer IR_read;
 
 // IR receptor
 int IR_receptorPin = A2;//Pin used to read IR values
 IRrecv irrecv(IR_receptorPin);//Create an object
 decode_results results;
-int IR_Impact = 5;
+int IR_Impact = 5;//If we recevied shoot this led will turn on
 int IR_counter = 0;
 
 //Death variable
@@ -63,12 +63,10 @@ void loop() {
 // Read the laser sensor to count the points
 void Laser_Sensor() {
         LaserValue = analogRead(LSpin);
-        //Serial.print(LaserValue);
-        //delay(2000);
         if(LaserValue > 350) {
                 if(end < 20) {
-                        Serial.write('1'); // Sends '1' to the master to count as one point
-                        delay(200);
+                        Serial.write('1');// Sends '1' to the master to count as one point
+                        delay(500);
                 }//If we detect that the end variable is over 20 we will do a infinite bucle
                 else {
                         while(1) {
@@ -104,6 +102,6 @@ void IR_Receptor() {
                         delay(500);
                         digitalWrite(IR_Impact,LOW);
                 }
-         irrecv.resume(); // Receive the next value
+                irrecv.resume(); // Receive the next value
         }
 }
