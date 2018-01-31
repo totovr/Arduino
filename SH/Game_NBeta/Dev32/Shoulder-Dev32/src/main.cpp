@@ -21,6 +21,7 @@ int emg = 0;
 int emgcharging = 7;//led to indicate charging
 int emgfullcharge = 8;//led to indicate full charge
 int emg_counter = 0;
+
 //declare objects of SimpleTimer library
  SimpleTimer EMG_TIMER;//Don't write "timer" as and object
  SimpleTimer laser_read;
@@ -62,10 +63,12 @@ void loop() {
 // Read the laser sensor to count the points
 void Laser_Sensor() {
         LaserValue = analogRead(LSpin);
+        //laser_value must be changed sometimes
         if(LaserValue > 180) {
                 if(end < 20) {
                         end=+1;
                         Serial.write('1'); // Sends '1' to the master to count as one point
+                        delay(500);
                 }//If we detect that the end variable is over 20 we will do a infinite bucle
                 else {
                         while(1) {

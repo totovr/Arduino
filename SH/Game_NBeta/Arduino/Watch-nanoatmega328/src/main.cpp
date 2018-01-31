@@ -42,6 +42,7 @@ char Laser_Point;
 
 //declare objects of SimpleTimer library
 SimpleTimer laser_read_serial;
+SimpleTimer IR_read_serial;
 
 //IR Point
 char IR_Point;
@@ -84,7 +85,8 @@ void setup() {
         pinMode(Laser_WeaponIn, INPUT); //Set pin 2 as input
         //IR Pull Up bottom
         pinMode(IR_WeaponIn, INPUT); //Set pin 7 as input
-        laser_read_serial.setInterval(1000, Laser_Points);//repeats every 0.1 seconds can be changed
+        laser_read_serial.setInterval(1000, Laser_Points);//repeats every 1 second, can be changed
+        IR_read_serial.setInterval(1000, IR_Points);//repeats every 1 second, can be changed
 }
 
 // the loop routine runs over and over again forever:
@@ -95,7 +97,8 @@ void loop() {
         //Laser_Points();
         laser_read_serial.run();
         //IR Points check if the user was hit by the Special Gun
-        IR_Points();
+        //IR_Points();
+        IR_read_serial.run();
         //Check how many shoots did the player
         Laser_Weapon();
         //Check if we charge the super weapon
@@ -128,7 +131,7 @@ void Laser_Points() {
                         oled_LF();
                         delay(1500);
                         end = points;
-                        if (end > 20) {
+                        if (end >= 20) {
                                 while(1) {
                                         Game_Over();
                                 }
@@ -143,6 +146,7 @@ void IR_Points() {
                 if (IR_Point == '3') {
                         points = points + 5;
                         oled_LF();
+                        delay(1500);
                         end = points;
                         IR_Point = '0';
                         if(end >= 20) {
@@ -194,7 +198,7 @@ void Special_Weapon_Activated() {
                   if (special_weapon_active == 2) {
                   Special_Weapon_Shoot();
                   special_weapon_active = 0;
-                  //Super_Gun = '0';
+                  Super_Gun = '0';
                 }
           }
   }
