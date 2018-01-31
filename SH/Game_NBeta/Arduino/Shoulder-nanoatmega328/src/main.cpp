@@ -21,6 +21,7 @@ int emg = 0;
 int emgcharging = 7;//led to indicate charging
 int emgfullcharge = 8;//led to indicate full charge
 int emg_counter = 0;
+
 //declare objects of SimpleTimer library
  SimpleTimer EMG_read;//object of the SimpleTimer class
  SimpleTimer laser_read;
@@ -45,7 +46,7 @@ void setup() {
         pinMode(emgfullcharge, OUTPUT);//Turn on when IR gun is fully charged
         irrecv.enableIRIn(); // Start the receiver
         EMG_read.setInterval(1000, repeatEMG);//repeats every 1 second
-        laser_read.setInterval(100, Laser_Sensor);//repeats every 0.1 seconds can be changed
+        laser_read.setInterval(200, Laser_Sensor);//repeats every 0.1 seconds can be changed
         IR_read.setInterval(100, IR_Receptor);//repeats every 0.1 seconds can be changed
 }
 
@@ -62,10 +63,12 @@ void loop() {
 // Read the laser sensor to count the points
 void Laser_Sensor() {
         LaserValue = analogRead(LSpin);
-        if(LaserValue > 180) {
-          
+        //Serial.print(LaserValue);
+        //delay(2000);
+        if(LaserValue > 360) {
                 if(end < 20) {
                         Serial.write('1'); // Sends '1' to the master to count as one point
+                        delay(10);
                 }//If we detect that the end variable is over 20 we will do a infinite bucle
                 else {
                         while(1) {
