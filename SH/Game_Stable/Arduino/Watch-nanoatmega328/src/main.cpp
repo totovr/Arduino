@@ -7,7 +7,7 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <IRremote.h>
-#include <SimpleTimer.h>
+//#include <SimpleTimer.h>
 
 //Functions
 void TheGame();//Show a message before the game start
@@ -41,8 +41,8 @@ int points = 0;
 char Laser_Point;
 
 //declare objects of SimpleTimer library
-SimpleTimer laser_read_serial;
-SimpleTimer IR_read_serial;
+//SimpleTimer laser_read_serial;
+//SimpleTimer IR_read_serial;
 
 //IR Point
 char IR_Point;
@@ -85,8 +85,8 @@ void setup() {
         pinMode(Laser_WeaponIn, INPUT); //Set pin 2 as input
         //IR Pull Up bottom
         pinMode(IR_WeaponIn, INPUT); //Set pin 7 as input
-        laser_read_serial.setInterval(1000, Laser_Points);//repeats every 1 second, can be changed
-        IR_read_serial.setInterval(1000, IR_Points);//repeats every 1 second, can be changed
+        //laser_read_serial.setInterval(1000, Laser_Points);//repeats every 1 second, can be changed
+        //IR_read_serial.setInterval(1000, IR_Points);//repeats every 1 second, can be changed
 }
 
 // the loop routine runs over and over again forever:
@@ -94,11 +94,11 @@ void loop() {
         //Just will set this display for the first 5 seconds
         oled_timer();
         //Laser Points check if the user was hit by the laser gun
-        //Laser_Points();
-        laser_read_serial.run();
+        Laser_Points();
+        //laser_read_serial.run();
         //IR Points check if the user was hit by the Special Gun
-        //IR_Points();
-        IR_read_serial.run();
+        IR_Points();
+        //IR_read_serial.run();
         //Check how many shoots did the player
         Laser_Weapon();
         //Check if we charge the super weapon
@@ -129,7 +129,7 @@ void Laser_Points() {
                         points = points + 1;
                         Laser_Point = '0';
                         oled_LF();
-                        delay(1500);
+                        delay(2000);
                         end = points;
                         if (end >= 20) {
                                 while(1) {
@@ -146,7 +146,7 @@ void IR_Points() {
                 if (IR_Point == '3') {
                         points = points + 5;
                         oled_LF();
-                        delay(1500);
+                        delay(2000);
                         end = points;
                         IR_Point = '0';
                         if(end >= 20) {
