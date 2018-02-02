@@ -1,11 +1,11 @@
 #include <Arduino.h>
 
 char val; // Data received from the serial port
-int ledPin = 7; // Set the pin to digital I/O 13
+int ledPin = 7; // Set the pin to digital I/O 7
 
 void setup() {
         pinMode(ledPin, OUTPUT); // Set pin as OUTPUT
-        Serial.begin(38400); // Start serial communication at 9600 bps
+        Serial.begin(38400); // Start serial communication at 38400 bps
 }
 
 void loop() {
