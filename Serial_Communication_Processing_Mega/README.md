@@ -79,7 +79,7 @@ The problem consist in that when you try to communicate processing and Arduino, 
 
 <img src="https://github.com/totovr/Arduino/blob/master/Serial_Communication_Processing_Mega/Images/IMG_2444.JPG" width="400">
 
-### LED ON
+#### LED ON
 
 <img src="https://github.com/totovr/Arduino/blob/master/Serial_Communication_Processing_Mega/Images/IMG_2445.JPG" width="400">
 
