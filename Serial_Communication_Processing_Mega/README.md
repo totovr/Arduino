@@ -74,6 +74,6 @@ The problem consist in that when you try to communicate processing and Arduino, 
 
 - After upload the program in the Mega, you simply need to reset the card after establishing the communication, but before it starts to send the information (before the RX led starts to turn on).
 
-![Sin titulo](IMG_2444.JPG)
+![LED OFF](https://github.com/totovr/Arduino/blob/master/Serial_Communication_Processing_Mega/Images/IMG_2444.JPG)
 
-![Sin titulo](IMG_2445.JPG)
+![LED ON](https://github.com/totovr/Arduino/blob/master/Serial_Communication_Processing_Mega/Images/IMG_2445.JPG)
