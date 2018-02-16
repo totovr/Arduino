@@ -5,7 +5,7 @@ int ledPin = 7; // Set the pin to digital I/O 7
 
 void setup() {
         pinMode(ledPin, OUTPUT); // Set pin as OUTPUT
-        Serial.begin(38400); // Start serial communication at 38400 bps
+        Serial.begin(115200); // Start serial communication at 38400 bps
 }
 
 void loop() {
