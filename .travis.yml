@@ -9,7 +9,6 @@ script:
     - platformio ci HC-05/MASTER_SLAVE/Slave/src --board=uno --board=nanoatmega328 --board=megaatmega2560 --board=esp32dev
     - platformio ci HC-05/MASTER_SLAVE/Master/src --board=uno --board=nanoatmega328 --board=megaatmega2560 --board=esp32dev
     - platformio ci Serial_Communication_Processing_Mega/megaatmega2560/src  --board=megaatmega2560 
-    - platformio ci GridEye/GridEye/src  --board=uno 
     
 notifications:
   email:
