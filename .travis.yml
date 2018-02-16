@@ -7,6 +7,7 @@ install:
 
 script:
     - platformio ci HC-05/MASTER_SLAVE/Slave/src --board=uno --board=nanoatmega328 --board=megaatmega2560 --board=esp32dev
+    - platformio ci HC-05/MASTER_SLAVE/Master/src --board=uno --board=nanoatmega328 --board=megaatmega2560 --board=esp32dev
     
 notifications:
   email:
