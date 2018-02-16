@@ -6,7 +6,7 @@ install:
     - python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py)"
 
 script:
-    - platformio ci HC-05/MASTER_SLAVE/Slave/src --board=uno --board=nano --board=mega --board=ESP32
+    - platformio ci HC-05/MASTER_SLAVE/Slave/src --board=uno --board=nanoatmega328 --board=megaatmega2560 --board=esp32dev
     
 notifications:
   email:
