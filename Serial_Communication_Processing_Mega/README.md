@@ -47,7 +47,7 @@ The problem consist in that when you try to communicate processing and Arduino, 
     //println(portName);
     //delay(3000);
     myPort = new Serial(this, portName, 38400);
-    while (a < 5000S) {         // cycle of 3 seconds duration, during this time
+    while (a < 5000) {         // cycle of 3 seconds duration, during this time
     a = millis ();}            // you need to press the RESET buttom.
   }
 
@@ -66,7 +66,7 @@ The problem consist in that when you try to communicate processing and Arduino, 
 - If you see I added the next two lines:
 
   ```
-  while (a < 5000S) {         // cycle of 5 seconds duration, during this time
+  while (a < 5000) {         // cycle of 5 seconds duration, during this time
   a = millis ();}            // you need to press the RESET buttom.
   ```
 
